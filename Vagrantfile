@@ -9,7 +9,7 @@ end
 
 host_project_path = File.expand_path("..", __FILE__)
 guest_project_path = "/home/vagrant/#{File.basename(host_project_path)}"
-project_name = "chef"
+project_name = "chef-server"
 
 Vagrant.configure("2") do |config|
 
@@ -80,17 +80,6 @@ Vagrant.configure("2") do |config|
       "recipe[omnibus::default]"
     ]
   end
-
-  # We have to nuke any chef omnibus packages (used during provisioning) before
-  # we build new chef omnibus packages!
-  config.vm.provision :shell, :inline => <<-REMOVE_OMNIBUS
-    if command -v dpkg &>/dev/null;
-    then
-      sudo dpkg -P #{project_name} || true
-    else
-      sudo rpm -ev #{project_name} || true
-    fi
-  REMOVE_OMNIBUS
 
   config.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
     sudo mkdir -p /opt/#{project_name}

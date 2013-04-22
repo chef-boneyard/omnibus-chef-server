@@ -1,6 +1,6 @@
-# Chef Omnibus project
+# Chef Server Omnibus project
 
-This project creates full-stack platform-specific packages for `chef`!
+This project creates full-stack platform-specific packages for `chef-server`!
 
 ## Installation
 
@@ -18,7 +18,7 @@ $ bundle install --binstubs
 You create a platform-specific package using the `build project` command:
 
 ```shell
-$ bin/omnibus build project chef
+$ bin/omnibus build project chef-server
 ```
 
 The platform/architecture type of the package created will match the platform
