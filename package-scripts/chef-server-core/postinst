@@ -27,9 +27,9 @@ else
   echo -e "\033[1msudo chef-server-ctl reconfigure\033[0m"
   # Disable the webui since it is not included in chef-server-core
   # In the future when the webui is separate, we will disable the webui by default and the add-on will have to enable
-  grep 'chef_server_webui\["enable"\]' /etc/chef-server/chef-server.rb 2>&1 >/dev/null
+  grep "chef_server_webui\[[\'\"]enable[\'\"]\]" /etc/chef-server/chef-server.rb 2>&1 >/dev/null
   if [ $? == 0 ]; then
-    grep 'chef_server_webui\["enable"\]' /etc/chef-server/chef-server.rb | grep true 2>&1 >/dev/null
+    grep "chef_server_webui\[[\'\"]enable[\'\"]\]" /etc/chef-server/chef-server.rb | grep true 2>&1 >/dev/null
     if [ $? == 0 ]; then
       echo "Warning: the webui is enabled in /etc/chef-server/chef-server.rb, but this package does not include it"
       exit 1
