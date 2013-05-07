@@ -12,13 +12,12 @@ function error_exit
 }
 
 ln -sf /opt/chef-server/bin/chef-server-ctl /usr/bin || error_exit "Cannot link chef-server-ctl in /usr/bin"
-  
-if [ -e /etc/opscode/chef-server-running.json ]; then
+
+if [ -e /etc/chef-server/chef-server-running.json ]; then
   echo -e "\033[1mYou have upgraded Chef Server!\033[0m"
   echo
   echo "The next step in the upgrade process is to run:"
   echo
-  echo -e "\033[1;31msudo chef-server-ctl upgrade\033[0m"
   echo -e "\033[1;31msudo chef-server-ctl reconfigure\033[0m"
 else
   echo -e "\033[1mThank you for installing Chef Server!\033[0m"
@@ -26,6 +25,19 @@ else
   echo "The next step in the install process is to run:"
   echo
   echo -e "\033[1msudo chef-server-ctl reconfigure\033[0m"
+  # Disable the webui since it is not included in chef-server-core
+  # In the future when the webui is separate, we will disable the webui by default and the add-on will have to enable
+  grep 'chef_server_webui\["enable"\]' /etc/chef-server/chef-server.rb 2>&1 >/dev/null
+  if [ $? == 0 ]; then
+    grep 'chef_server_webui\["enable"\]' /etc/chef-server/chef-server.rb | grep true 2>&1 >/dev/null
+    if [ $? == 0 ]; then
+      echo "Warning: the webui is enabled in /etc/chef-server/chef-server.rb, but this package does not include it"
+      exit 1
+    fi
+  else
+    echo "Disabling the webui, which is not included in this package"
+    printf 'chef_server_webui["enable"] = false' | tee -a /etc/chef-server/chef-server.rb
+  fi
 fi
 
 exit 0
