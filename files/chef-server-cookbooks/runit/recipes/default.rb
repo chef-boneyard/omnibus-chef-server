@@ -27,6 +27,8 @@ when "redhat","centos","rhel","scientific"
   else
     include_recipe "runit::sysvinit"
   end
+when "amazon"
+  include_recipe "runit::upstart"
 else
   include_recipe "runit::sysvinit"
 end
