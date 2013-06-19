@@ -1,7 +1,7 @@
 server {
   listen <%= @server_port %>;
   server_name <%= @server_name %>;
-  access_log /var/log/chef-server/nginx/access.log opscode;
+  access_log <%= node['chef_server']['nginx']['log_directory'] %>/access.log opscode;
 
   <% if @server_proto == "https" -%>
   ssl on;

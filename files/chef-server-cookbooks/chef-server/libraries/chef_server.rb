@@ -34,6 +34,8 @@ module ChefServer
   bookshelf Mash.new
   bootstrap Mash.new
   nginx Mash.new
+  chef_pedant Mash.new
+  estatsd Mash.new
   api_fqdn nil
   node nil
   notification_email nil
@@ -99,6 +101,8 @@ module ChefServer
         "lb",
         "postgresql",
         "nginx",
+        "chef_pedant",
+        "estatsd",
         "bookshelf",
         "bootstrap"
       ].each do |key|
