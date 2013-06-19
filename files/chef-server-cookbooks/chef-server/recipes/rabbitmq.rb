@@ -77,7 +77,7 @@ if node['chef_server']['bootstrap']['enable']
 		retries 20
 	end
 
-  execute "/opt/chef-server/embedded/bin/chpst -u #{node["chef_server"]["user"]["username"]} -U #{node["chef_server"]["user"]["username"]} /opt/chef-server/embedded/bin/rabbitmqctl wait /var/opt/chef-server/rabbitmq/db/rabbit@localhost.pid" do
+  execute "/opt/chef-server/embedded/bin/chpst -u #{node["chef_server"]["user"]["username"]} -U #{node["chef_server"]["user"]["username"]} /opt/chef-server/embedded/bin/rabbitmqctl wait #{rabbitmq_data_dir}/rabbit@localhost.pid" do
     retries 10
   end
 
