@@ -17,7 +17,7 @@
 
 name "chef-pedant"
 
-version "1.0.14"
+version "cm/OC-8302-reindex"
 
 dependency "ruby"
 dependency "bundler"

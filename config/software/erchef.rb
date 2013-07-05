@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-version "1.2.15"
+version "cm/OC-8302-reindex"
 
 dependency "erlang"
 dependency "rsync"
