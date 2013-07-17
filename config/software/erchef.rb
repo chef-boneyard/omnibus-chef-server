@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-version "hh/OC-8557/request_logger"
+version "1.2.18"
 
 dependency "erlang"
 dependency "rsync"
