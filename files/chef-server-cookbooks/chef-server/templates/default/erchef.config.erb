@@ -104,7 +104,7 @@
                        {file, "<%= File.join(@log_directory, 'requests.log') %>"},
                        {file_size, 100},  %% Size in MB
                        {files, 5},
-                       {annotations, [{reqid, "req_id"}]}
+                       {annotations, [user, req_id, perf_stats]}
                           ]
                       }]
               } ]
