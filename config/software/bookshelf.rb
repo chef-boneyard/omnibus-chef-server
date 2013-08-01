@@ -16,7 +16,7 @@
 #
 
 name "bookshelf"
-version "0.2.1"
+version "0.2.6"
 
 dependency "erlang"
 dependency "rebar"
