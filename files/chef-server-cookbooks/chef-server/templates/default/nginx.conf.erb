@@ -52,7 +52,7 @@ http {
   server {
     listen <%= @non_ssl_port %>;
     access_log /var/log/chef-server/nginx/rewrite-port-<%= @non_ssl_port %>.log;
-    return 301 https://$host$request_uri;
+    return 301 https://$host:<%= @ssl_port %>$request_uri;
   }
   <%- end -%>
   <%-  end -%>
