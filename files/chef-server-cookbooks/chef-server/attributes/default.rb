@@ -134,6 +134,7 @@ default['chef_server']['erchef']['web_ui_client_name'] = "chef-webui"
 default['chef_server']['erchef']['root_metric_key'] = "chefAPI"
 default['chef_server']['erchef']['depsolver_worker_count'] = 5
 default['chef_server']['erchef']['depsolver_timeout'] = 5000
+default['chef_server']['erchef']['max_request_size'] = 1000000
 
 ####
 # Chef Server WebUI

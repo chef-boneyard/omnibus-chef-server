@@ -21,6 +21,7 @@
               {server_flavor, "<%= node['chef_server']['flavor'] %>"},
               {health_ping_modules, [chef_sql, chef_solr]},
               {health_ping_timeout, 400},
+              {max_request_size, <%= node['chef_server']['erchef']['max_request_size'] %>},
               {local_key_gen, {true, 2048}},
               {ip, "<%= @listen %>"},
               {port, <%= @port %>},
