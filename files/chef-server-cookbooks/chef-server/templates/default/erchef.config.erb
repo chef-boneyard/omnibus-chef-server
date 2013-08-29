@@ -95,7 +95,12 @@
            {pools, [[{name, sqerl},
                      {max_count, <%= @db_pool_size %>},
                      {init_count, <%= @db_pool_size %>},
-                     {start_mfa, {sqerl_client, start_link, []}}]]},
+                     {start_mfa, {sqerl_client, start_link, []}} ],
+                    [{name, chef_depsolver},
+                     {max_count, <%= @depsolver_worker_count %>},
+                     {init_count, <%= @depsolver_worker_count %>},
+                     {start_mfa, {chef_depsolver_worker, start_link, []}}]
+                 ]},
            {metrics_module, folsom_metrics}
           ]},
   {webmachine, [
