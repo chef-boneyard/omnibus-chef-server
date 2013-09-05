@@ -17,7 +17,7 @@
 
 name "chef-pedant"
 
-version "1.0.15"
+version "1.0.18"
 
 dependency "ruby"
 dependency "bundler"
