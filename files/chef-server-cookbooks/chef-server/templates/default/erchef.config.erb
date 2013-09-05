@@ -21,6 +21,7 @@
               {server_flavor, "<%= node['chef_server']['flavor'] %>"},
               {health_ping_modules, [chef_sql, chef_solr]},
               {health_ping_timeout, 400},
+              {max_request_size, <%= node['chef_server']['erchef']['max_request_size'] %>},
               {local_key_gen, {true, 2048}},
               {ip, "<%= @listen %>"},
               {port, <%= @port %>},
@@ -95,7 +96,12 @@
            {pools, [[{name, sqerl},
                      {max_count, <%= @db_pool_size %>},
                      {init_count, <%= @db_pool_size %>},
-                     {start_mfa, {sqerl_client, start_link, []}}]]},
+                     {start_mfa, {sqerl_client, start_link, []}} ],
+                    [{name, chef_depsolver},
+                     {max_count, <%= @depsolver_worker_count %>},
+                     {init_count, <%= @depsolver_worker_count %>},
+                     {start_mfa, {chef_depsolver_worker, start_link, []}}]
+                 ]},
            {metrics_module, folsom_metrics}
           ]},
   {webmachine, [
