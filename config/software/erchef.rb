@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-version "1.2.21"
+version "1.2.22"
 
 dependency "erlang"
 dependency "rsync"
