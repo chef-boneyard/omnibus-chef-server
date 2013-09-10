@@ -122,5 +122,16 @@ EOKEY
         OpenSSL::PKey::RSA.new(keypair_string)
       end
   end
+
+  def self.erl_atom_or_string(term)
+    case term
+    when Symbol
+      term
+    when String
+      "\"#{term}\""
+    else
+      "undefined"
+    end
+  end
 end
 

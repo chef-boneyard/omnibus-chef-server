@@ -31,6 +31,11 @@
               %% how many nodes are deserialized at a time in
               %% preparing a response.
               {bulk_fetch_batch_size, <%= @bulk_fetch_batch_size %>},
+              %% By default, generate resource urls based upon Host header in requests. This does not
+              %% include presigned urls from bookshelf or S3. You can override this with a fully-qualified URL,
+              %% for example: "https://chef-server.example.com"
+              {base_resource_url, <%= @helper.erl_atom_or_string(node['chef_server']['erchef']['base_resource_url']) %>},
+
               {superusers, [<<"chef-webui">>]},
               %% metrics config
               {root_metric_key, "<%= @root_metric_key %>"}
@@ -57,13 +62,20 @@
   {chef_objects, [
                   {s3_access_key_id, "<%= node['chef_server']['bookshelf']['access_key_id'] %>"},
                   {s3_secret_key_id, "<%= node['chef_server']['bookshelf']['secret_access_key'] %>"},
-                  %% The s3_url is used by erchef to talk to bookshelf
-                  %% and used to generate URLs that are given to
-                  %% clients that they use to access cookbook
-                  %% content. This URL needs to be reachable from
-                  %% nodes running chef-client and knife.
+                  %% The s3_url is used by erchef to talk to bookshelf. This is not used
+                  %% to generate URLs given back to requestors. See s3_external_url for that setting
                   {s3_url, "<%= node['chef_server']['bookshelf']['url'] %>"},
                   {s3_platform_bucket_name, "<%= @s3_bucket %>"},
+
+                  %% In order to support use-cases where erchef and bookshelf
+                  %% sits behind a proxy or a firewall, we need an "external_url". This is
+                  %% used to generate the artifact URL given back to the clients. However,
+                  %% it makes sense for erchef to communicate with bookshelf internally.
+                  %% Default is host_header, which will use the Host: header in the request
+                  %% to generate presigned URLs.
+                  %% To use S3, you would set the s3_url and s3_external_url to the same
+                  %% url.
+                  {s3_external_url, <%= @helper.erl_atom_or_string(node['chef_server']['bookshelf']['external_url']) %>},
                   {s3_url_ttl, <%= @s3_url_ttl %>},
                   {s3_parallel_ops_timeout, <%= @s3_parallel_ops_timeout %>},
                   {s3_parallel_ops_fanout, <%= @s3_parallel_ops_fanout %>}
