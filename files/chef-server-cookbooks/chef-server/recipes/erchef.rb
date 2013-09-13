@@ -50,7 +50,7 @@ erchef_config = File.join(erchef_etc_dir, "app.config")
 template erchef_config do
   source "erchef.config.erb"
   mode "644"
-  variables(node['chef_server']['erchef'].to_hash)
+  variables(node['chef_server']['erchef'].to_hash.merge({:helper => OmnibusHelper}))
   notifies :run, 'execute[remove_erchef_siz_files]', :immediately
   notifies :restart, 'service[erchef]' if OmnibusHelper.should_notify?("erchef")
 end
