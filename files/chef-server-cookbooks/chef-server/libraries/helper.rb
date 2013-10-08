@@ -17,7 +17,58 @@
 
 require 'mixlib/shellout'
 
+class PgHelper
+  attr_reader :node
+
+  def initialize(node)
+    @node = node
+  end
+
+  def is_running?
+    OmnibusHelper.service_up?("postgresql")
+  end
+
+  def database_exists?
+    psql_cmd(["-d 'template1'",
+              "-c 'select datname from pg_database' -x",
+              "| grep opscode_chef"])
+  end
+
+  def sql_user_exists?
+    user_exists?(node['chef_server']['postgresql']['sql_user'])
+  end
+
+  def sql_ro_user_exists?
+    user_exists?(node['chef_server']['postgresql']['sql_ro_user'])
+  end
+  
+  def user_exists?(db_user)
+    psql_cmd(["-d 'template1'",
+              "-c 'select usename from pg_user' -x",
+              "|grep #{db_user}"])
+  end
+
+  def psql_cmd(cmd_list)
+    cmd = ["/opt/chef-server/embedded/bin/chpst",
+           "-u #{pg_user}",
+           "/opt/chef-server/embedded/bin/psql", cmd_list.join(" ")].join(" ")
+    do_shell_out(cmd, 0)
+  end
+
+  def pg_user
+    node['chef_server']['postgresql']['username']
+  end
+
+  def do_shell_out(cmd, expect_status)
+    o = Mixlib::ShellOut.new(cmd)
+    o.run_command
+    o.exitstatus == expect_status
+  end
+
+end
+
 class OmnibusHelper
+
   def self.should_notify?(service_name)
     File.symlink?("/opt/chef-server/service/#{service_name}") && service_up?(service_name)
   end

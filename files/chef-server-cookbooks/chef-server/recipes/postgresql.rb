@@ -134,13 +134,11 @@ end
 # Create the database, migrate it, and create the users we need, and grant them
 # privileges.
 ###
-database_exists = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select datname from pg_database' -x|grep opscode_chef"
-user_exists     = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select usename from pg_user' -x|grep #{node['chef_server']['postgresql']['sql_user']}"
-ro_user_exists  = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select usename from pg_user' -x|grep #{node['chef_server']['postgresql']['sql_ro_user']}"
+pg_helper = PgHelper.new(node)
 
 execute "/opt/chef-server/embedded/bin/createdb -T template0 -E UTF-8 opscode_chef" do
   user node['chef_server']['postgresql']['username']
-  not_if database_exists
+  not_if { !pg_helper.is_running? || pg_helper.database_exists? }
   retries 30
   notifies :run, "execute[migrate_database]", :immediately
 end
@@ -156,7 +154,7 @@ execute "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"CREATE USER #
   cwd chef_db_dir
   user node['chef_server']['postgresql']['username']
   notifies :run, "execute[grant opscode_chef privileges]", :immediately
-  not_if user_exists
+  not_if { !pg_helper.is_running? || pg_helper.sql_user_exists? }
 end
 
 execute "grant opscode_chef privileges" do
@@ -169,7 +167,7 @@ execute "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"CREATE USER #
   cwd chef_db_dir
   user node['chef_server']['postgresql']['username']
   notifies :run, "execute[grant opscode_chef_ro privileges]", :immediately
-  not_if ro_user_exists
+  not_if { !pg_helper.is_running? || pg_helper.sql_ro_user_exists? }
 end
 
 execute "grant opscode_chef_ro privileges" do
