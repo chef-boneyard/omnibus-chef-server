@@ -19,13 +19,13 @@ require 'mixlib/shellout'
 
 class OmnibusHelper
   def self.should_notify?(service_name)
-    File.symlink?("/opt/chef-server/service/#{service_name}") && check_status(service_name)
+    File.symlink?("/opt/chef-server/service/#{service_name}") && service_up?(service_name)
   end
 
-  def self.check_status(service_name)
+  def self.service_up?(service_name)
     o = Mixlib::ShellOut.new("/opt/chef-server/bin/chef-server-ctl status #{service_name}")
     o.run_command
-    o.exitstatus == 0 ? true : false
+    o.exitstatus == 0
   end
 
   # generate a certificate signed by the opscode ca key
