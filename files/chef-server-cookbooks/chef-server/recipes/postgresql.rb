@@ -134,46 +134,55 @@ end
 # Create the database, migrate it, and create the users we need, and grant them
 # privileges.
 ###
-database_exists = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select datname from pg_database' -x|grep opscode_chef"
-user_exists     = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select usename from pg_user' -x|grep #{node['chef_server']['postgresql']['sql_user']}"
-ro_user_exists  = "/opt/chef-server/embedded/bin/chpst -u #{node['chef_server']['postgresql']['username']} /opt/chef-server/embedded/bin/psql -d 'template1' -c 'select usename from pg_user' -x|grep #{node['chef_server']['postgresql']['sql_ro_user']}"
+pg_helper = PgHelper.new(node)
+pg_port = node['chef_server']['postgresql']['port']
+pg_user = node['chef_server']['postgresql']['username']
+bin_dir = "/opt/chef-server/embedded/bin"
+db_name = "opscode_chef"
 
-execute "/opt/chef-server/embedded/bin/createdb -T template0 -E UTF-8 opscode_chef" do
-  user node['chef_server']['postgresql']['username']
-  not_if database_exists
+execute "create #{db_name} database" do
+  command "#{bin_dir}/createdb -T template0 --port #{pg_port} -E UTF-8 #{db_name}"
+  user pg_user
+  not_if { !pg_helper.is_running? || pg_helper.database_exists?(db_name) }
   retries 30
   notifies :run, "execute[migrate_database]", :immediately
 end
 
 execute "migrate_database" do
-  command "/opt/chef-server/embedded/bin/psql opscode_chef < priv/pgsql_schema.sql"
+  command "#{bin_dir}/psql #{db_name} --port #{pg_port} < priv/pgsql_schema.sql"
   cwd chef_db_dir
-  user node['chef_server']['postgresql']['username']
+  user pg_user
   action :nothing
 end
 
-execute "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"CREATE USER #{node['chef_server']['postgresql']['sql_user']} WITH SUPERUSER ENCRYPTED PASSWORD '#{node['chef_server']['postgresql']['sql_password']}'\"" do
+sql_user        = node['chef_server']['postgresql']['sql_user']
+sql_user_passwd = node['chef_server']['postgresql']['sql_password']
+
+execute "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"CREATE USER #{sql_user} WITH SUPERUSER ENCRYPTED PASSWORD '#{sql_user_passwd}'\"" do
   cwd chef_db_dir
-  user node['chef_server']['postgresql']['username']
-  notifies :run, "execute[grant opscode_chef privileges]", :immediately
-  not_if user_exists
+  user pg_user
+  notifies :run, "execute[grant #{db_name} privileges]", :immediately
+  not_if { !pg_helper.is_running? || pg_helper.sql_user_exists? }
 end
 
-execute "grant opscode_chef privileges" do
-  command "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"GRANT ALL PRIVILEGES ON DATABASE opscode_chef TO #{node['chef_server']['postgresql']['sql_user']}\""
-  user node['chef_server']['postgresql']['username']
+execute "grant #{db_name} privileges" do
+  command "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"GRANT ALL PRIVILEGES ON DATABASE #{db_name} TO #{sql_user}\""
+  user pg_user
   action :nothing
 end
 
-execute "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"CREATE USER #{node['chef_server']['postgresql']['sql_ro_user']} WITH SUPERUSER ENCRYPTED PASSWORD '#{node['chef_server']['postgresql']['sql_ro_password']}'\"" do
+sql_ro_user = node['chef_server']['postgresql']['sql_ro_user']
+sql_ro_user_passwd = node['chef_server']['postgresql']['sql_ro_password']
+
+execute "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"CREATE USER #{sql_ro_user} WITH SUPERUSER ENCRYPTED PASSWORD '#{sql_ro_user_passwd}'\"" do
   cwd chef_db_dir
-  user node['chef_server']['postgresql']['username']
-  notifies :run, "execute[grant opscode_chef_ro privileges]", :immediately
-  not_if ro_user_exists
+  user pg_user
+  notifies :run, "execute[grant #{db_name}_ro privileges]", :immediately
+  not_if { !pg_helper.is_running? || pg_helper.sql_ro_user_exists? }
 end
 
-execute "grant opscode_chef_ro privileges" do
-  command "/opt/chef-server/embedded/bin/psql -d 'opscode_chef' -c \"GRANT ALL PRIVILEGES ON DATABASE opscode_chef TO #{node['chef_server']['postgresql']['sql_ro_user']}\""
-  user node['chef_server']['postgresql']['username']
+execute "grant #{db_name}_ro privileges" do
+  command "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"GRANT ALL PRIVILEGES ON DATABASE #{db_name} TO #{sql_ro_user}\""
+  user pg_user
   action :nothing
 end
