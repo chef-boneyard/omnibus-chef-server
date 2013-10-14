@@ -28,10 +28,10 @@ class PgHelper
     OmnibusHelper.service_up?("postgresql")
   end
 
-  def database_exists?
+  def database_exists?(db_name)
     psql_cmd(["-d 'template1'",
               "-c 'select datname from pg_database' -x",
-              "| grep opscode_chef"])
+              "| grep #{db_name}"])
   end
 
   def sql_user_exists?
@@ -51,12 +51,18 @@ class PgHelper
   def psql_cmd(cmd_list)
     cmd = ["/opt/chef-server/embedded/bin/chpst",
            "-u #{pg_user}",
-           "/opt/chef-server/embedded/bin/psql", cmd_list.join(" ")].join(" ")
+           "/opt/chef-server/embedded/bin/psql",
+           "--port #{pg_port}",
+           cmd_list.join(" ")].join(" ")
     do_shell_out(cmd, 0)
   end
 
   def pg_user
     node['chef_server']['postgresql']['username']
+  end
+
+  def pg_port
+    node['chef_server']['postgresql']['port']
   end
 
   def do_shell_out(cmd, expect_status)
