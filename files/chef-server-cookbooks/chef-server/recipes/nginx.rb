@@ -146,7 +146,7 @@ runit_service "nginx" do
   }.merge(params))
 end
 
-if node['chef_server']['nginx']['bootstrap']
+if node['chef_server']['bootstrap']['enable']
 	execute "/opt/chef-server/bin/chef-server-ctl start nginx" do
 		retries 20
 	end
