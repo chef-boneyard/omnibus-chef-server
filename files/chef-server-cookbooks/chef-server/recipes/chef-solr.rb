@@ -113,7 +113,6 @@ node.default['chef_server']['chef-solr']['new_size'] = new_size
 
 node.default['chef_server']['chef-solr']['command'] =  "java -Xmx#{solr_mem}M -Xms#{solr_mem}M"
 node.default['chef_server']['chef-solr']['command'] << "#{java_opts}"
-node.default['chef_server']['chef-solr']['command'] << " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8086 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 node.default['chef_server']['chef-solr']['command'] << " -Dsolr.data.dir=#{solr_data_dir}"
 node.default['chef_server']['chef-solr']['command'] << " -Dsolr.solr.home=#{solr_home_dir}"
 node.default['chef_server']['chef-solr']['command'] << " -server"
