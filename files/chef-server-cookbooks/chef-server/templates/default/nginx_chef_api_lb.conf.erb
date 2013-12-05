@@ -1,5 +1,6 @@
 server {
   listen <%= @server_port %>;
+  listen [::]:<%= @server_port %>;
   server_name <%= @server_name %>;
   access_log /var/log/chef-server/nginx/access.log opscode;
 
