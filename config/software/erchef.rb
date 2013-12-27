@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-version "1.2.24"
+version "sd/solr4"
 
 dependency "erlang"
 dependency "rsync"
