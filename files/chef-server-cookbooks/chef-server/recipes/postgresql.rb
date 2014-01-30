@@ -148,9 +148,10 @@ execute "create #{db_name} database" do
   notifies :run, "execute[migrate_database]", :immediately
 end
 
+# Idempotently install or upgrade the database
 execute "migrate_database" do
-  command "#{bin_dir}/psql #{db_name} --port #{pg_port} < priv/pgsql_schema.sql"
-  cwd chef_db_dir
+  command "sqitch --db-user #{pg_user} deploy"
+  cwd "/opt/chef-server/embedded/service/chef-server-schema"
   user pg_user
   action :nothing
 end
