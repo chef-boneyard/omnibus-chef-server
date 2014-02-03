@@ -24,6 +24,13 @@ class PgHelper
     @node = node
   end
 
+  def run_command(cmd, options)
+    cmd = Mixlib::ShellOut.new(cmd, options)
+    cmd.run_command
+    cmd
+  end
+
+
   def is_running?
     OmnibusHelper.service_up?("postgresql")
   end
@@ -34,6 +41,17 @@ class PgHelper
               "| grep #{db_name}"])
   end
 
+  def managed_by_sqitch?
+    cmd = run_command "sqitch --db-user #{db_user} verify",
+      :cwd     => '/opt/chef-server/embedded/service/chef-server-schema',
+      :returns => [0, 1, 2]
+    cmd.exitstatus == 0
+  end
+
+  def db_user
+    node['chef_server']['postgresql']['username']
+  end
+
   def sql_user_exists?
     user_exists?(node['chef_server']['postgresql']['sql_user'])
   end
@@ -41,7 +59,7 @@ class PgHelper
   def sql_ro_user_exists?
     user_exists?(node['chef_server']['postgresql']['sql_ro_user'])
   end
-  
+
   def user_exists?(db_user)
     psql_cmd(["-d 'template1'",
               "-c 'select usename from pg_user' -x",
