@@ -48,6 +48,13 @@ class PgHelper
     cmd.exitstatus == 0
   end
 
+  def needs_schema_update?
+    cmd = run_command "sqitch --db-user #{db_user} status",
+      :cwd     => '/opt/chef-server/embedded/service/chef-server-schema',
+      :returns => [0, 1, 2]
+    cmd.stdout !~ /^Nothing to deploy \(up-to-date\)$/
+  end
+
   def db_user
     node['chef_server']['postgresql']['username']
   end

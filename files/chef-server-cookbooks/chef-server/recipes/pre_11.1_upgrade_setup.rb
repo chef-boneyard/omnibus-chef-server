@@ -32,4 +32,12 @@ execute 'sqitchfy_database' do
   cwd '/opt/chef-server/embedded/service/chef-server-schema'
   user pg_user
   action :nothing
+  notifies :run, "execute[migrate_database]", :immediately
+end
+
+execute "migrate_database" do
+  command "sqitch --db-user #{pg_user} deploy --verify"
+  cwd "/opt/chef-server/embedded/service/chef-server-schema"
+  user pg_user
+  action :nothing
 end

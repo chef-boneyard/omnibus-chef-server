@@ -145,15 +145,14 @@ execute "create #{db_name} database" do
   user pg_user
   not_if { !pg_helper.is_running? || pg_helper.database_exists?(db_name) }
   retries 30
+  notifies :run, 'execute[install_schema]', :immediately
 end
 
-# Idempotently install or upgrade the database, but only if database is managed by sqitch
-execute "migrate_database" do
-  command "sqitch --db-user #{pg_user} deploy"
+execute "install_schema" do
+  command "sqitch --db-user #{pg_user} deploy --verify" # same as preflight
   cwd "/opt/chef-server/embedded/service/chef-server-schema"
   user pg_user
-  only_if { pg_helper.is_running? && pg_helper.managed_by_sqitch? }
-  action :run
+  action :nothing
 end
 
 sql_user        = node['chef_server']['postgresql']['sql_user']
