@@ -87,7 +87,7 @@
               ]},
   {sqerl, [
            %% The only database supported is Postgres
-           {db_type, pgsql},
+           {db_driver_mod, sqerl_pgsql_client},
 
            %% Database connection parameters
            {db_host, "<%= node['chef_server']['postgresql']['vip'] %>"},
