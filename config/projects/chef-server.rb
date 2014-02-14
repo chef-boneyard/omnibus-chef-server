@@ -42,6 +42,7 @@ dependency "rabbitmq"
 dependency "chef-solr"
 dependency "chef-expander"
 dependency "bookshelf" # S3 API compatible object store
+dependency "chef-server-schema"
 
 # the front-end services
 dependency "erchef" # the actual Chef Server REST API

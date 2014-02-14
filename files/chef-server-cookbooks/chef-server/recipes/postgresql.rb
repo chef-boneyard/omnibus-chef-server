@@ -145,12 +145,12 @@ execute "create #{db_name} database" do
   user pg_user
   not_if { !pg_helper.is_running? || pg_helper.database_exists?(db_name) }
   retries 30
-  notifies :run, "execute[migrate_database]", :immediately
+  notifies :run, 'execute[install_schema]', :immediately
 end
 
-execute "migrate_database" do
-  command "#{bin_dir}/psql #{db_name} --port #{pg_port} < priv/pgsql_schema.sql"
-  cwd chef_db_dir
+execute "install_schema" do
+  command "sqitch --db-user #{pg_user} deploy --verify" # same as preflight
+  cwd "/opt/chef-server/embedded/service/chef-server-schema"
   user pg_user
   action :nothing
 end
