@@ -24,4 +24,9 @@ source :path => File.expand_path("files/chef-server-cookbooks", Omnibus.project_
 build do
   command "mkdir -p #{install_dir}/embedded/cookbooks"
   command "#{install_dir}/embedded/bin/rsync --delete -a ./ #{install_dir}/embedded/cookbooks/"
+  block do
+    File.open("#{install_dir}/embedded/cookbooks/pre_upgrade_setup.json", "w") do |f|
+      f.puts "{\"run_list\": [ \"recipe[#{project.name}::pre_11.1_upgrade_setup]\" ]}"
+    end
+  end
 end
