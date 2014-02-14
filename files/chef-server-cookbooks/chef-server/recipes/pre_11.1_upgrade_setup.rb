@@ -2,7 +2,7 @@
 # via omnibus. If this does not work, it would be better to use knife to backup
 # the chef server and then restore it after installing the new version of the chef-server.
 # We don't expect this to be needed in the future, since Chef Server 11.1+ will have
-# squitch-managed databases.
+# sqitch-managed databases.
 
 pg_helper = PgHelper.new(node)
 pg_user  = pg_helper.db_user
