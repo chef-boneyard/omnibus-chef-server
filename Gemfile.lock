@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/opscode/omnibus-software.git
-  revision: 5ee2eae4a159f3c20dccf89e64a3532eadba2eff
+  revision: 3d9d097332199fdafc3237c0ec11fcd784c11b4d
   branch: master
   specs:
     omnibus-software (0.0.1)
@@ -9,11 +9,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.5)
-    arr-pm (0.0.8)
+    arr-pm (0.0.9)
       cabin (> 0)
     backports (3.5.0)
     cabin (0.6.1)
-    childprocess (0.4.0)
+    childprocess (0.4.2)
       ffi (~> 1.0, >= 1.0.11)
     clamp (0.6.3)
     ffi (1.9.3)
