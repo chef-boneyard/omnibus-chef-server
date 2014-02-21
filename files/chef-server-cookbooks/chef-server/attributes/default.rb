@@ -206,14 +206,14 @@ default['chef_server']['nginx']['enable_non_ssl'] = false
 default['chef_server']['nginx']['non_ssl_port'] = 80
 default['chef_server']['nginx']['server_name'] = node['fqdn']
 default['chef_server']['nginx']['url'] = "https://#{node['fqdn']}"
-# These options provide the current best security with TSLv1
-#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +TLSv1"
+# These options provide the current best security with TSLv1/1.1/1.2
+#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +TLSv1 +TLSv1.1 +TLSv1.2"
 #default['chef_server']['nginx']['ssl_ciphers'] = "RC4:!MD5"
 # This might be necessary for auditors that want no MEDIUM security ciphers and don't understand BEAST attacks
-#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +SSLv3 +TLSv1"
+#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +SSLv3 +TLSv1 +TLSv1.1 +TLSv1.2"
 #default['chef_server']['nginx']['ssl_ciphers'] = "HIGH:!MEDIUM:!LOW:!ADH:!kEDH:!aNULL:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
 # The following favors performance and compatibility, addresses BEAST, and should pass a PCI audit
-default['chef_server']['nginx']['ssl_protocols'] = "SSLv3 TLSv1"
+default['chef_server']['nginx']['ssl_protocols'] = "SSLv3 TLSv1 TLSv1.1 TLSv1.2"
 default['chef_server']['nginx']['ssl_ciphers'] = "RC4-SHA:RC4-MD5:RC4:RSA:HIGH:MEDIUM:!LOW:!kEDH:!aNULL:!ADH:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
 default['chef_server']['nginx']['ssl_certificate'] = nil
 default['chef_server']['nginx']['ssl_certificate_key'] = nil
