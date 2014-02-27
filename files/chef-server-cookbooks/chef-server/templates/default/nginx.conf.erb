@@ -1,6 +1,6 @@
 user <%= node['chef_server']['user']['username'] %> <%= node['chef_server']['user']['username']%>;
 worker_processes <%= @worker_processes %>;
-error_log /var/log/chef-server/nginx/error.log<%= node['chef_server']['lb']['debug'] ? " debug" : "" %>;
+error_log <%= node['chef_server']['nginx']['log_directory'] %>/error.log<%= node['chef_server']['lb']['debug'] ? " debug" : "" %>;
 
 daemon off;
 
@@ -51,7 +51,7 @@ http {
 
   server {
     listen <%= @non_ssl_port %>;
-    access_log /var/log/chef-server/nginx/rewrite-port-<%= @non_ssl_port %>.log;
+    access_log <%= node['chef_server']['nginx']['log_directory'] %>/rewrite-port-<%= @non_ssl_port %>.log;
     return 301 https://$host:<%= @ssl_port %>$request_uri;
   }
   <%- end -%>
