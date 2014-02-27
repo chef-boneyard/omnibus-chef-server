@@ -36,6 +36,7 @@ module ChefServer
   bookshelf Mash.new
   bootstrap Mash.new
   nginx Mash.new
+  user Mash.new
   api_fqdn nil
   node nil
   notification_email nil
@@ -104,7 +105,8 @@ module ChefServer
         "postgresql",
         "nginx",
         "bookshelf",
-        "bootstrap"
+        "bootstrap", 
+        "user"
       ].each do |key|
         rkey = key.gsub('_', '-')
         results['chef_server'][rkey] = ChefServer[key]
