@@ -24,6 +24,8 @@ require 'securerandom'
 module ChefServer
   extend(Mixlib::Config)
 
+  chef_pedant Mash.new
+  estatsd Mash.new
   rabbitmq Mash.new
   chef_solr Mash.new
   chef_expander Mash.new
@@ -91,6 +93,8 @@ module ChefServer
     def generate_hash
       results = { "chef_server" => {} }
       [
+        "chef_pedant",
+        "estatsd",
         "rabbitmq",
         "chef_solr",
         "chef_expander",
