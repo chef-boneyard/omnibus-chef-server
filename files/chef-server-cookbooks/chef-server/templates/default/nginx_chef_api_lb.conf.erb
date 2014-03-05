@@ -1,5 +1,11 @@
 server {
-  listen <%= @server_port %>;
+  <%- if @enable_ipv6 -%>
+    # listen to the port on both ivp6 and ipv4
+    listen [::]:<%= @server_port%>;
+  <%- else  -%>
+    # listen on ipv4 only
+    listen <%= @server_port%>;
+  <%- end -%>
   server_name <%= @server_name %>;
   access_log <%= node['chef_server']['nginx']['log_directory'] %>/access.log opscode;
 

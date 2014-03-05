@@ -236,6 +236,7 @@ default['chef_server']['nginx']['gzip_types'] = [ "text/plain", "text/css", "app
 default['chef_server']['nginx']['keepalive_timeout'] = 65
 default['chef_server']['nginx']['client_max_body_size'] = '250m'
 default['chef_server']['nginx']['cache_max_size'] = '5000m'
+default['chef_server']['nginx']['enable_ipv6'] = false
 
 ###
 # PostgreSQL

@@ -50,7 +50,13 @@ http {
   <%- else -%>
 
   server {
+  <%- if @enable_ipv6 -%>
+    # listen to the port on both ivp6 and ipv4
+    listen [::]:<%= @non_ssl_port %>;
+  <%- else  -%>
+    # listen on ipv4 only
     listen <%= @non_ssl_port %>;
+  <%- end -%>
     access_log <%= node['chef_server']['nginx']['log_directory'] %>/rewrite-port-<%= @non_ssl_port %>.log;
     return 301 https://$host:<%= @ssl_port %>$request_uri;
   }
