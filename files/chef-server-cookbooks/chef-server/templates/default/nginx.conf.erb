@@ -52,7 +52,7 @@ http {
   server {
   <%- if @enable_ipv6 -%>
     # listen to the port on both ivp6 and ipv4
-    listen [::]:<%= @non_ssl_port %>;
+    listen [::]:<%= @non_ssl_port %> ivp6only=off;
   <%- else  -%>
     # listen on ipv4 only
     listen <%= @non_ssl_port %>;

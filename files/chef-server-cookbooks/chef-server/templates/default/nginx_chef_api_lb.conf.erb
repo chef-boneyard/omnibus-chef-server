@@ -1,7 +1,7 @@
 server {
   <%- if @enable_ipv6 -%>
     # listen to the port on both ivp6 and ipv4
-    listen [::]:<%= @server_port%>;
+    listen [::]:<%= @server_port%> ivp6only=off;
   <%- else  -%>
     # listen on ipv4 only
     listen <%= @server_port%>;
