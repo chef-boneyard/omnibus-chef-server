@@ -70,6 +70,6 @@ Vagrant.configure('2') do |config|
     export PATH=/usr/local/bin:$PATH
     cd #{guest_project_path}
     su vagrant -c "bundle install --binstubs"
-    su vagrant -c "bin/omnibus build project #{project_name}"
+    su vagrant -c "bin/omnibus build #{project_name}"
   OMNIBUS_BUILD
 end

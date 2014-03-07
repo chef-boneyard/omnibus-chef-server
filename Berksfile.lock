@@ -16,7 +16,7 @@
       "locked_version": "2.0.8"
     },
     "yum": {
-      "locked_version": "2.4.4"
+      "locked_version": "3.0.2"
     },
     "windows": {
       "locked_version": "1.11.0"
@@ -25,7 +25,10 @@
       "locked_version": "1.1.4"
     },
     "runit": {
-      "locked_version": "1.4.0"
+      "locked_version": "1.5.3"
+    },
+    "yum-epel": {
+      "locked_version": "0.2.0"
     },
     "homebrew": {
       "locked_version": "1.3.2"
