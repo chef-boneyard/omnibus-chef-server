@@ -1,12 +1,12 @@
 {
-    "architecture=x86_64,platform=centos-5.5,project=chef-server,role=builder": [
+    "architecture=x86_64,platform=centos-5,project=chef-server,role=builder": [
         [
             "el",
             "5",
             "x86_64"
         ]
     ],
-    "architecture=x86_64,platform=centos-6.2,project=chef-server,role=builder": [
+    "architecture=x86_64,platform=centos-6,project=chef-server,role=builder": [
         [
             "el",
             "6",
