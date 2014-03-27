@@ -1,5 +1,5 @@
 name "sqitch"
-version "0.973"
+default_version "0.973"
 
 dependency "perl"
 dependency "postgresql"

@@ -16,7 +16,7 @@
 #
 
 name "rebar"
-version "retry_use_source"
+default_version "retry_use_source"
 
 dependency "erlang"
 

@@ -16,7 +16,7 @@
 #
 
 name "chef-expander"
-version "11.0.0"
+default_version "11.0.0"
 
 dependency "ruby"
 dependency "bundler"
