@@ -1,5 +1,5 @@
 name "chef-server-schema"
-version "1.0.4"
+default_version "1.0.4"
 
 source :git => "git@github.com:opscode/chef-server-schema.git"
 
