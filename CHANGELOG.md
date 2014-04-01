@@ -16,16 +16,16 @@ TODO: Verify if 3952 is also fixed in this build
 
 An update from chef-server-webui 11.0.10
 
-[CHEF-5056] Upgrade Rails to 3.2.17
-[CHEF-4858] Upgrade chef-server-webui Rails to 3.2.16
-[CHEF-4757] ruby cookbook file in web UI shows up as "Binary file not shown"
-[CHEF-4403] Environment edit screen: Stop json being escaped as html
+[CHEF-5056] Upgrade Rails to 3.2.17  
+[CHEF-4858] Upgrade chef-server-webui Rails to 3.2.16  
+[CHEF-4757] ruby cookbook file in web UI shows up as "Binary file not shown"  
+[CHEF-4403] Environment edit screen: Stop json being escaped as html  
 [CHEF-4040] Environment existing settings are not displayed correctly when
-            editing environments or nodes via the WebUI
+            editing environments or nodes via the WebUI  
 [CHEF-4004] Select to Close Existing Environment Run List Uses Incorrect Rails
-            Helper
-[CHEF-3951] databag item creation not possible
-[CHEF-3883] Chef 11 status page does not list all nodes
+            Helper  
+[CHEF-3951] databag item creation not possible  
+[CHEF-3883] Chef 11 status page does not list all nodes  
 
 The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/chef-server-webui/compare/11.0.10...11.1)
 
