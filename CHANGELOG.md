@@ -63,9 +63,11 @@ This is a large change that pulls in many updates to the underlying dependencies
 The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/omnibus-software/compare/1fa82ad5e674b1700b0a28a93fa2801ff6db9290...32e32984bbd180375f0418fee6da1a991227b1fa)
 
 
-### erchef 1.3.1
+### erchef 1.4.0
 
 An update from erchef 1.2.6
 
-This is a large update that pulls in many updates to the underlying erchef dependencies. It is best viewed using Github's compare view seen [here](https://github.com/opscode/erchef/compare/1.2.6...1.3.1)
+One change of note is the change from fastlog to lager as the logger of choice.
+
+This is a large update that pulls in many updates to the underlying erchef dependencies. It is best viewed using Github's compare view seen [here](https://github.com/opscode/erchef/compare/1.2.6...1.4.0)
 
