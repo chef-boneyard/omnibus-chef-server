@@ -4,14 +4,21 @@
 
 ### Notable changes
 
-* Addition of a chef-server-ctl upgrade command  
-This allows an upgrade of the Chef server in place. It applies necessary SQL changes without having to backup data and install the server from scratch. It is still encouraged that a data backup is performed first, in case something goes wrong.
+* Addition of a ```chef-server-ctl upgrade command```  
+
+    This allows an upgrade of the Chef server in place. It applies necessary SQL changes without having to backup data and install the server from scratch. It is still encouraged that a data backup is performed first, in case something goes wrong.
 
 * Addition of ```nginx['enable_ipv6']``` option  
-nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses.
+
+    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses.
 
 * Added support for proxy/firewalls.  
-Chef server now supports working through proxies and firewalls by making use of the set vhost by default. If s3 is being used to store cookbooks bookshelf has two settings, s3_url and s3_external_url that will need to be set.
+
+    Chef server now supports working through proxies and firewalls by making use of the vhost. The Chef server will inspect the vhost to ensure requests are returned properly through the proxy/firewall.  
+
+    If S3 is being used to store cookbooks then bookshelf has two settings, ```bookshelf['s3_url']``` and ```bookshelf['s3_external_url']``` that will need to be set to ensure this continues to function as expected.
+
+    ```bookshelf['s3_url']``` is the S3 url used by the Chef server to communicate with S3. ```bookshelf['s3_external_url']``` is the S3 url that will be returned to clients so they can comminicate with S3. This is necessary since the clients live on the other side of the proxy/firewall from the server.
 
 ### Bugfixes
 
@@ -67,7 +74,7 @@ The full changeset can be viewed on Github's compare view [here](https://github.
 
 An update from [erchef 1.2.6](https://github.com/opscode/erchef/releases/tag/1.2.6)
 
-One change of note is the change from fastlog to lager as the logger of choice.
+One change of note is the change from [fast_log](https://github.com/opscode/fast-log-erlang) to [lager](https://github.com/basho/lager) as the logger of choice.
 
 This is a large update that pulls in many updates to the underlying erchef dependencies. It is best viewed using Github's compare view seen [here](https://github.com/opscode/erchef/compare/1.2.6...1.4.0)
 
