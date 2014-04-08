@@ -35,8 +35,6 @@
 * [CHEF-3991](https://tickets.opscode.com/browse/CHEF-3991) Dialyzer fix for estatsd  
 * [CHEF-3976](https://tickets.opscode.com/browse/CHEF-3976) chef_objects rejects "provides 'service[foo]'"" in metadata  
 * [CHEF-3975](https://tickets.opscode.com/browse/CHEF-3975) Searching for compound attributes in data bags will not yield results  
-* [CHEF-3952](https://tickets.opscode.com/browse/CHEF-3952) Cookbook view reports ERROR: undefined method 'close!' for nil:NilClass  
-* [CHEF-3951](https://tickets.opscode.com/browse/CHEF-3951) databag item creation not possible  
 * [CHEF-3921](https://tickets.opscode.com/browse/CHEF-3921) Missing Dependency causes chef server to consume all the CPU  
 * [CHEF-3838](https://tickets.opscode.com/browse/CHEF-3838) RabbitMQ does not start on Oracle or Amazon Linux  
 * [CHEF-2380](https://tickets.opscode.com/browse/CHEF-2380) Clients Should be Able to Upload Their Own Public Keys to Chef-Server  
@@ -54,6 +52,7 @@ An update from [chef-server-webui 11.0.10](https://github.com/opscode/chef-serve
 * [CHEF-4403](https://tickets.opscode.com/browse/CHEF-4403) Environment edit screen: Stop json being escaped as html  
 * [CHEF-4040](https://tickets.opscode.com/browse/CHEF-4040) Environment existing settings are not displayed correctly when editing environments or nodes via the WebUI  
 * [CHEF-4004](https://tickets.opscode.com/browse/CHEF-4004) Select to Close Existing Environment Run List Uses Incorrect Rails Helper  
+* [CHEF-3952](https://tickets.opscode.com/browse/CHEF-3952) Cookbook view reports ERROR: undefined method 'close!' for nil:NilClass  
 * [CHEF-3951](https://tickets.opscode.com/browse/CHEF-3951) databag item creation not possible  
 * [CHEF-3883](https://tickets.opscode.com/browse/CHEF-3883) Chef 11 status page does not list all nodes  
 * [CHEF-3267](https://tickets.opscode.com/browse/CHEF-3267) webui status page doesn't respect environment selection  
