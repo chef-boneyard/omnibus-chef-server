@@ -19,7 +19,6 @@ name "chef-server"
 maintainer "Opscode, Inc."
 homepage "http://www.opscode.com"
 
-replaces        "chef-server"
 install_path    "/opt/chef-server"
 build_version   Omnibus::BuildVersion.new.semver
 build_iteration 1
