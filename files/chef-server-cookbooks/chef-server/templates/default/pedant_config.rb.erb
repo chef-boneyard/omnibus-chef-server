@@ -30,6 +30,11 @@ search_server "<%= @solr_url %>"
 # differs significantly from this.
 maximum_search_time 65
 
+# Related to the 'search_server' parameter. This adds a sleep after
+# a solr commit. If you are getting intermittant solr errors, bump
+# this up.
+direct_solr_query_sleep_time 4.000
+
 # We're starting to break tests up into groups based on different
 # criteria.  The proper API tests (the results of which are viewable
 # to OPC customers) should be the only ones run by Pedant embedded in
