@@ -17,16 +17,24 @@
 # limitations under the License.
 #
 
-# TODO: This needs RHEL support
-case node["platform"]
-when "ubuntu"
-  include_recipe "runit::upstart"
-when "redhat","centos","rhel","scientific"
-  if node['platform_version'] =~ /^6/
-    include_recipe "runit::upstart"
-  else
-    include_recipe "runit::sysvinit"
+case
+when File.exists?("/.dockerinit")
+  # Inside Docker, assume no init system exists.
+  # Instead, just fire off runsvdir and hope it never dies.
+  bash "Launch runsvdir in the background for Docker" do
+    code "nohup /opt/chef-server/embedded/bin/runsvdir-start >/dev/null &"
+    not_if "pgrep -f 'runsvdir -P /opt/chef-server/service'"
   end
-else
+
+when File.directory?("/etc/systemd")
+  # We are running under SystemD
+  include_recipe "runit::systemd"
+when File.directory?("/etc/init")
+  # We are running using Upstart
+  include_recipe "runit::upstart"
+when File.exists?("/etc/inittab")
+  # Assume sysv-style init scripts
   include_recipe "runit::sysvinit"
+else
+  raise "Cannot determine what init system we are using for runit!"
 end
