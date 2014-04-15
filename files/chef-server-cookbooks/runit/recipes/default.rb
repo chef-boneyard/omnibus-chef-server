@@ -17,24 +17,23 @@
 # limitations under the License.
 #
 
-case node["platform_family"]
-when "debian"
-  include_recipe "runit::upstart"
-when "rhel"
-  case node["platform"]
-  when "amazon", "xenserver"
-    # TODO: platform_version check for old distro without upstart
-    include_recipe "runit::upstart"
-  else
-    if node['platform_version'] =~ /^5/
-      include_recipe "runit::sysvinit"
-    else # >= 6.0
-      include_recipe "runit::upstart"
-    end
+case
+when File.exists?("/.dockerinit")
+  # Inside Docker, assume no init system exists.
+  # Instead, just fire off runsvdir and hope it never dies.
+  bash "Launch runsvdir in the background for Docker" do
+    code "nohup /opt/chef-server/embedded/bin/runsvdir-start >/dev/null &"
+    not_if "pgrep -f 'runsvdir -P /opt/chef-server/service'"
   end
-when "fedora"
-  # TODO: platform_version check for old distro without upstart
+when File.directory?("/etc/systemd")
+  # We are running under SystemD
+  include_recipe "runit::systemd"
+when File.directory?("/etc/init")
+  # We are running using Upstart
   include_recipe "runit::upstart"
-else
+when File.exists?("/etc/inittab")
+  # Assume sysv-style init scripts
   include_recipe "runit::sysvinit"
+else
+  raise "Cannot determine what init system we are using for runit!"
 end
