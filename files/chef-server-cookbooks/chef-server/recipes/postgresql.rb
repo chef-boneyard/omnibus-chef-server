@@ -63,13 +63,15 @@ sysv_mem_keys.each do |k|
   if sysv_mem[k] < node['chef_server']['postgresql'][k]
     # Set the sysctl value directly.
     execute "sysctl kernel.#{k}=#{node['chef_server']['postgresql'][k]}"
-    # Save it if we need to
-    directory "/etc/sysctl.d" do
-      recursive true
-    end
+    shmem_setting = "kernel.#{k} = #{node['chef_server']['postgresql'][k]}"
+    shmem_target = if File.directory?("/etc/sysctl.d")
+                     "/etc/sysctl.d/90-chef-server-postgresql.conf"
+                   else
+                     "/etc/sysctl.conf"
+                   end
     bash "Save #{k} postgresql setting for next reboot" do
-      code "echo 'kernel.#{k} = #{node['chef_server']['postgresql'][k]}' >> /etc/sysctl.d/90-chef-server-postgresql.conf"
-      not_if "grep -q '^kernel\.#{k}' /etc/sysctl.d/90-chef-server-postgresql.conf"
+      code "echo '#{shmem_setting}' >> '#{shmem_target}'"
+      not_if "fgrep -q '#{shmem_setting}' #{shmem_target}"
     end
   end
 end
