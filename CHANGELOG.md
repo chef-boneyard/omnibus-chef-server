@@ -85,3 +85,9 @@ One change of note is the change from [fast_log](https://github.com/opscode/fast
 
 This is a large update that pulls in many updates to the underlying erchef dependencies. It is best viewed using Github's compare view seen [here](https://github.com/opscode/erchef/compare/1.2.6...1.4.0)
 
+#### [bookshelf 1.1.3](https://github.com/opscode/bookshelf/releases/tag/1.1.3)
+
+An update from [bookshelf 0.2.8](https://github.com/opscode/bookshelf/releases/tag/0.2.8)
+
+This is a large update that pulls in many improvements to bookshelf. It is best viewed using Github's compare view seen [here](https://github.com/opscode/bookshelf/compare/0.2.8...1.1.3)
+
