@@ -20,6 +20,12 @@
 
     ```bookshelf['s3_url']``` is the S3 url used by the Chef server to communicate with S3. ```bookshelf['s3_external_url']``` is the S3 url that will be returned to clients so they can comminicate with S3. This is necessary since the clients live on the other side of the proxy/firewall from the server.
 
+* Change back to gecode depsolver
+
+  With the 11.0 release, Chef server changed depsolvers from [gecode](http://www.gecode.org/) to an all [erlang depsolver](https://github.com/opscode/depsolver). The idea behind this was to drop the heavy nature of gecode, which has a considerable build time and large binary to ship. However, the experience of switching taught us that our erlang solution was not robust enough to solve all the dependencies that gecode could and that Chef users needed. Therefore with this release the depsolver switches back to using gecode. This switch should be transparent, but in some cases cookbook dependency resolution that was previously failing should work again.
+
+  The change in depsolvers is accomplished through changes to the repo [chef_objects](https://github.com/opscode/chef_objects) and these changes are pulled in by the updated [erchef](https://github.com/opscode/erchef).
+
 ### Bugfixes
 
 * [CHEF-5038](https://tickets.opscode.com/browse/CHEF-5038) Setting NGINX logs to non-standard dir in chef-server doesn't work  
