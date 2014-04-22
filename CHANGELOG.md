@@ -32,6 +32,28 @@
 
   For most users this change should not be an issue, but you may need to adjust the attribute on your systems if you're running in a tiered or HA setup.
 
+* runit update
+
+  This change was actually included in the 11.0.8 release, but if you're updating from an older version you should be aware of this.
+
+  The runit that manages the Chef server processes was updated to no longer have opscode in its path and config names, switching to use chef-server instead. The change was made in this [commit](https://github.com/opscode/omnibus-chef-server/commit/10e571b85db3113818c2b1665e025e86d34e8654).
+
+  While the commit in question attempts to ensure the old process is stopped, in some cases after upgrade orphaned processes have been observed (These are Chef server process that after upgrade instead of being managed by runit are attatched to init (PID 1). The upgrade completes successfully, but the orphaned processes have to be manually killed.
+
+  To avoid this the following steps can be taken to stop all the Chef server processes before doing a package upgrade. You'll need root or sudo access to perform these commands.
+
+  initctl stop opscode-runsvdir
+
+  chef-server-ctl graceful-kill
+
+  pkill -9 -f epmd
+
+  and then follow the upgrade path of your package manager of choice.
+
+  A note on the steps take and the reasons for them. The first step stops the runit process under the old name so it doesn't resurrect any killed processes. Step two stops all the Chef server processes. Step three stops epmd, the Erlang port mapper deamon. Erlang starts a copy of this processes on all systems it runs on. This should actually be managed by runit, but due to an oversight it currently is not.
+
+  With these steps taken a clean upgrade from a pre-11.0.8 install can be performed.
+
 ### Bugfixes
 
 * [CHEF-5038](https://tickets.opscode.com/browse/CHEF-5038) Setting NGINX logs to non-standard dir in chef-server doesn't work  
