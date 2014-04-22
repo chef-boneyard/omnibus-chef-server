@@ -51,6 +51,7 @@ dependency "chef-pedant" # test ALL THE THINGS!
 
 # version manifest file
 dependency "version-manifest"
+dependency "version-manifest-json"
 
 exclude "\.git*"
 exclude "bundler\/git"

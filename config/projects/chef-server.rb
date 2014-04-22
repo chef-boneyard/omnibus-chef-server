@@ -52,9 +52,7 @@ dependency "chef-pedant" # test ALL THE THINGS!
 
 # version manifest file
 dependency "version-manifest"
-
-# build-metadata file
-dependency "build-metadata"
+dependency "version-manifest-json"
 
 exclude "\.git*"
 exclude "bundler\/git"

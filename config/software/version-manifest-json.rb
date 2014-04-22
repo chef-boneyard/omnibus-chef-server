@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 # @author :: Ho-Sheng Hsiao <hosh@getchef.com>
-# @description :: This generates a build-metadata.json file into the deb
+# @description :: This generates a version-manifest.json file into the package
 
-name 'build-metadata'
-description "generates a build metadata file"
+name 'version-manifest-json'
+description "generates a version-manifest.json file"
 always_build true
 
 build do
@@ -29,12 +29,15 @@ build do
   block do
     _platform, _platform_version, _arch = project.send(:platform_tuple)
     metadata = {
+      format_version:   '0.0.1',
       platform:         _platform,
       platform_version: _platform_version,
       arch:             _arch,
       version:          project.build_version
+      # PLACEHOLDER:    normally, we would also want a map of components, but right now, the build
+      #                 platform build information is more important
     }
-    File.open("#{install_dir}/build-metadata.json", 'w') do |f|
+    File.open("#{install_dir}/version-manifest.json", 'w') do |f|
       f.print(JSON.pretty_generate(metadata))
     end
   end
