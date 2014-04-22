@@ -96,13 +96,13 @@ Also see [chef-server-webui 11.1](https://github.com/opscode/chef-server-webui/r
 
 The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/chef-server-webui/compare/11.0.10...11.1.1)
 
-#### [omnibus-software ff864b6b046107972f57c3b4855915ae5c99f6fd](https://github.com/opscode/omnibus-software/commits/ff864b6b046107972f57c3b4855915ae5c99f6fd)
+#### [omnibus-software a08918d84cb4ae31d4c749167def662350aa6235](https://github.com/opscode/omnibus-software/commits/a08918d84cb4ae31d4c749167def662350aa6235)
 
 An update from commit [1fa82ad5e674b1700b0a28a93fa2801ff6db9290](https://github.com/opscode/omnibus-software/commits/1fa82ad5e674b1700b0a28a93fa2801ff6db9290)
 
 This is a large change that pulls in many updates to the underlying dependencies that Chef Server uses.
 
-The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/omnibus-software/compare/1fa82ad5e674b1700b0a28a93fa2801ff6db9290...ff864b6b046107972f57c3b4855915ae5c99f6fd)
+The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/omnibus-software/compare/1fa82ad5e674b1700b0a28a93fa2801ff6db9290...a08918d84cb4ae31d4c749167def662350aa6235)
 
 
 #### [erchef 1.4.0](https://github.com/opscode/erchef/releases/tag/1.4.0)
