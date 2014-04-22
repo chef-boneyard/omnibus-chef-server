@@ -16,7 +16,7 @@
 #
 
 name "bookshelf"
-default_version "0.2.8"
+default_version "1.1.3"
 
 dependency "erlang"
 dependency "rebar"
