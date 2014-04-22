@@ -26,6 +26,12 @@
 
   The change in depsolvers is accomplished through changes to the repo [chef_objects](https://github.com/opscode/chef_objects) and these changes are pulled in by the updated [erchef](https://github.com/opscode/erchef).
 
+* Default RabbitMQ port change
+
+  The default RabbitMQ port has been changed from 5672 to 8672. This was due to a conflict with the default port on RedHat 6 systems. The commit and rationale are can be seen in this [commit message](https://github.com/opscode/omnibus-chef-server/commit/b3bd2c4e20762b5f828953719e8fad56c6b3808e).
+
+  For most users this change should not be an issue, but you may need to adjust the attribute on your systems if you're running in a tiered or HA setup.
+
 ### Bugfixes
 
 * [CHEF-5038](https://tickets.opscode.com/browse/CHEF-5038) Setting NGINX logs to non-standard dir in chef-server doesn't work  
