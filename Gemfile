@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'omnibus', '~> 2.0.1'
-gem 'omnibus-software', github: 'opscode/omnibus-software'
+gem 'omnibus', github: 'opscode/omnibus-ruby', branch: 'hh/version-manifest.json'
+gem 'omnibus-software', github: 'opscode/omnibus-software', branch: 'hh/version-manifest.json'
