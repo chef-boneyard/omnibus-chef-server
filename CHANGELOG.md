@@ -119,3 +119,7 @@ An update from [bookshelf 0.2.8](https://github.com/opscode/bookshelf/releases/t
 
 This is a large update that pulls in many improvements to bookshelf. It is best viewed using Github's compare view seen [here](https://github.com/opscode/bookshelf/compare/0.2.8...1.1.3)
 
+#### [Chef 11.12.2](https://github.com/opscode/chef/releases/tag/11.12.2)
+
+The embedded Chef client that ships with the Chef server was bumped from [11.10.4](https://github.com/opscode/chef/releases/tag/11.10.4) to 11.12.2. Github's compare view of the changes can be seen [here](https://github.com/opscode/chef/compare/11.10.4...11.12.2)
+
