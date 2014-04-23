@@ -119,3 +119,9 @@ An update from [bookshelf 0.2.8](https://github.com/opscode/bookshelf/releases/t
 
 This is a large update that pulls in many improvements to bookshelf. It is best viewed using Github's compare view seen [here](https://github.com/opscode/bookshelf/compare/0.2.8...1.1.3)
 
+#### [chef-pedant 1.0.27](https://github.com/opscode/chef-pedant/releases/tag/1.0.27)
+
+An update form [chef-pedant 1.0.24](https://github.com/opscode/chef-pedant/releases/tag/1.0.24)
+
+This adds some improvements to chef-pedant and updates the tests. Github's compare view of this change can be seen [here](https://github.com/opscode/chef-pedant/compare/1.0.24...1.0.27)
+
