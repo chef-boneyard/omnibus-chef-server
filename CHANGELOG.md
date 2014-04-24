@@ -123,3 +123,9 @@ This is a large update that pulls in many improvements to bookshelf. It is best 
 
 The embedded Chef client that ships with the Chef server was bumped from [11.10.4](https://github.com/opscode/chef/releases/tag/11.10.4) to 11.12.2. Github's compare view of the changes can be seen [here](https://github.com/opscode/chef/compare/11.10.4...11.12.2)
 
+#### [chef-pedant 1.0.27](https://github.com/opscode/chef-pedant/releases/tag/1.0.27)
+
+An update form [chef-pedant 1.0.24](https://github.com/opscode/chef-pedant/releases/tag/1.0.24)
+
+This adds some improvements to chef-pedant and updates the tests. Github's compare view of this change can be seen [here](https://github.com/opscode/chef-pedant/compare/1.0.24...1.0.27)
+

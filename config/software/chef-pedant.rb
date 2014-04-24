@@ -17,7 +17,7 @@
 
 name "chef-pedant"
 
-default_version "1.0.24"
+default_version "1.0.27"
 
 dependency "ruby"
 dependency "bundler"
