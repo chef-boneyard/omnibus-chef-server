@@ -144,6 +144,7 @@ module ChefServer
       determine_ip_mode
       ChefServer[:api_fqdn] ||= node_name
       gen_api_fqdn
+      set_nginx_ip_mode
       generate_hash
     end
 
@@ -161,6 +162,12 @@ module ChefServer
         exit 55
       end
     end
+
+   def set_nginx_ip_mode
+      # If ipv6 mode is on, ensure nginx is in ipv6 mode, but it can also be explicitly
+      # enabled if set directly while the rest of the Chef server remains in ipv4 mode
+      ChefServer["nginx"]["enable_ipv6"] ||= ChefServer["use_ipv6"]
+   end
 
   end
 end
