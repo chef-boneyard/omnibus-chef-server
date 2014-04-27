@@ -130,7 +130,7 @@ default['chef_server']['erchef']['ibrowse_max_pipeline_size'] = 1
 # Default: generate signed URLs based upon Host: header. Override with a url, "http:// ..."
 default['chef_server']['erchef']['base_resource_url'] = :host_header
 default['chef_server']['erchef']['s3_bucket'] = 'bookshelf'
-default['chef_server']['erchef']['s3_url_ttl'] = 28800
+default['chef_server']['erchef']['s3_url_ttl'] = 900
 default['chef_server']['erchef']['s3_parallel_ops_timeout'] = 5000
 default['chef_server']['erchef']['s3_parallel_ops_fanout'] = 20
 default['chef_server']['erchef']['proxy_user'] = "pivotal"
