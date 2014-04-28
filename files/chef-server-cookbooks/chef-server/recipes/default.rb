@@ -60,6 +60,7 @@ end
 
 # Install our runit instance
 include_recipe "runit"
+include_recipe "chef-server::sysctl-updates"
 
 # Configure Services
 [
