@@ -35,7 +35,9 @@ pedant_config = File.join(pedant_etc_dir, "pedant_config.rb")
 superuser_name = node['chef_server']['chef-server-webui']['web_ui_admin_user_name']
 superuser_key = "/etc/chef-server/#{node['chef_server']['chef-server-webui']['web_ui_admin_user_name']}.pem"
 
-solr_url = "http://#{node['chef_server']['chef-solr']['ip_address']}"
+helper = OmnibusHelper.new(node)
+
+solr_url = "http://#{helper.vip_for_uri('chef-solr')}"
 solr_url << ":#{node['chef_server']['chef-solr']['port']}"
 
 template pedant_config do

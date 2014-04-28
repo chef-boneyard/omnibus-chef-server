@@ -99,6 +99,32 @@ class PgHelper
 end
 
 class OmnibusHelper
+  attr_reader :node
+
+  def initialize(node)
+    @node = node
+  end
+
+  # Normalizes hosts. If the host part is an ipv6 literal, then it
+  # needs to be quoted with []
+  def self.normalize_host(host_part)
+    # Make this simple: if ':' is detected at all, it is assumed
+    # to be a valid ipv6 address. We don't do data validation at this
+    # point, and ':' is only valid in an URL if it is quoted by brackets.
+    if host_part =~ /:/
+      "[#{host_part}]"
+    else
+      host_part
+    end
+  end
+
+  def normalize_host(host_part)
+    self.class.normalize_host(host_part)
+  end
+
+  def vip_for_uri(service)
+    normalize_host(node['chef_server'][service]['vip'])
+  end
 
   def self.should_notify?(service_name)
     File.symlink?("/opt/chef-server/service/#{service_name}") && service_up?(service_name)
@@ -214,6 +240,10 @@ EOKEY
     else
       "undefined"
     end
+  end
+
+  def erl_atom_or_string(term)
+    self.class.erl_atom_or_string(term)
   end
 end
 

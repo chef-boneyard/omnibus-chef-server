@@ -24,6 +24,9 @@ require 'securerandom'
 module ChefServer
   extend(Mixlib::Config)
 
+  # options are "ipv4", "ipv6"
+  ip_version "ipv4"
+
   chef_pedant Mash.new
   estatsd Mash.new
   rabbitmq Mash.new
@@ -138,9 +141,33 @@ module ChefServer
 
     def generate_config(node_name)
       generate_secrets(node_name)
+      determine_ip_mode
       ChefServer[:api_fqdn] ||= node_name
       gen_api_fqdn
+      set_nginx_ip_mode
       generate_hash
     end
+
+    def determine_ip_mode
+      # "ipv4", "ipv6", default is ipv4
+      case ChefServer["ip_version"]
+      when "ipv4", nil
+        ChefServer["use_ipv4"] = true
+        ChefServer["use_ipv6"] = false
+      when "ipv6"
+        ChefServer["use_ipv4"] = false
+        ChefServer["use_ipv6"] = true
+      else # explicitly fail if set to something not recognized
+        Chef::Log.fatal("I do not understand the ip mode #{ChefServer.ip_version} - tryr ipv4 or ipv6.")
+        exit 55
+      end
+    end
+
+   def set_nginx_ip_mode
+      # If ipv6 mode is on, ensure nginx is in ipv6 mode, but it can also be explicitly
+      # enabled if set directly while the rest of the Chef server remains in ipv4 mode
+      ChefServer["nginx"]["enable_ipv6"] ||= ChefServer["use_ipv6"]
+   end
+
   end
 end

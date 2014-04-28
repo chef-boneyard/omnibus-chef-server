@@ -86,13 +86,14 @@
              {couchdb_port, 6666 }
             ]},
   {chef_index, [
+                {ip_mode, [<%= ChefServer['use_ipv6'] ? "ipv6,ipv4" : "ipv4" %>]},
                 {rabbitmq_host, "<%= node['chef_server']['rabbitmq']['vip'] %>"},
                 {rabbitmq_port, <%= node['chef_server']['rabbitmq']['node_port'] %> },
                 {rabbitmq_user, <<"<%= node['chef_server']['rabbitmq']['user'] %>">>},
                 {rabbitmq_password, <<"<%= node['chef_server']['rabbitmq']['password'] %>">>},
                 {rabbitmq_vhost, <<"<%= node['chef_server']['rabbitmq']['vhost'] %>">>},
                 {rabbitmq_exchange, <<"">>},
-                {solr_url, "http://<%= node['chef_server']['chef-solr']['vip'] %>:<%= node['chef_server']['chef-solr']['port'] %>/solr"}
+                {solr_url, "http://<%= @helper.vip_for_uri('chef-solr') %>:<%= node['chef_server']['chef-solr']['port'] %>/solr"}
                ]},
   {chef_objects, [
                   {s3_access_key_id, "<%= node['chef_server']['bookshelf']['access_key_id'] %>"},
@@ -124,6 +125,7 @@
            %% The only database supported is Postgres
            {db_driver_mod, sqerl_pgsql_client},
 
+           {ip_mode, [<%= ChefServer['use_ipv6'] ? "ipv6,ipv4" : "ipv4" %>]},
            %% Database connection parameters
            {db_host, "<%= node['chef_server']['postgresql']['vip'] %>"},
            {db_port, <%= node['chef_server']['postgresql']['port'] %>},
