@@ -9,6 +9,9 @@ pg_user  = pg_helper.db_user
 cookbook = run_context.cookbook_collection['chef-server']
 sql_file = cookbook.preferred_filename_on_disk_location(node, :files, 'sql/widen-cookbook-version.sql', nil)
 
+# We need to kill epmd. Erlang will lazy start it when it is needed.
+execute 'pkill -9 -f epmd'
+
 # Make sure postgresql is running so we can check the db schema on file.
 execute '/opt/chef-server/bin/chef-server-ctl start postgresql' do
   retries 20
