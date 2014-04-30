@@ -145,22 +145,39 @@ module ChefServer
       ChefServer[:api_fqdn] ||= node_name
       gen_api_fqdn
       set_nginx_ip_mode
+      set_default_listen_interface
       generate_hash
     end
 
+    # Default to listen addresses that ensure any service
+    # that needs to listening eternally does so. Note that due to sysctl
+    # changes that are also applied, the default ipv6 listen address will
+    # also listen on ipv4 addresses
+    # If a service needs to be locked down to listen only on localhost it can be
+    # by setting the listen address for that service in the chef-server.rb file
+    ChefServer["default_listen_address"] = "0.0.0.0"
     def determine_ip_mode
       # "ipv4", "ipv6", default is ipv4
       case ChefServer["ip_version"]
       when "ipv4", nil
         ChefServer["use_ipv4"] = true
         ChefServer["use_ipv6"] = false
+        ChefServer["default_listen_address"] = "0.0.0.0"
       when "ipv6"
         ChefServer["use_ipv4"] = false
         ChefServer["use_ipv6"] = true
+        ChefServer["default_listen_address"] = "::"
       else # explicitly fail if set to something not recognized
         Chef::Log.fatal("I do not understand the ip mode #{ChefServer.ip_version} - tryr ipv4 or ipv6.")
         exit 55
       end
+    end
+
+    def set_default_listen_interface
+      ChefServer["bookshelf"]["listen"] ||= ChefServer["default_listen_address"]
+      ChefServer["rabbitmq"]["node_ip_address"] ||= ChefServer["default_listen_address"]
+      ChefServer["chef-solr"]["ip_address"] ||= ChefServer["default_listen_address"]
+      ChefServer["postgresql"]["listen_address"] ||= ChefServer["default_listen_address"]
     end
 
    def set_nginx_ip_mode
