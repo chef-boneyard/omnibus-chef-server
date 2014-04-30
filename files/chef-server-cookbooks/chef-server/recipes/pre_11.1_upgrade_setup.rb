@@ -44,3 +44,13 @@ execute "migrate_database" do
   user pg_user
   action :nothing
 end
+
+# Postgresql needs to be shut down during the reconfigure phase
+# This way, runsvdir can properly lock logs on some platforms
+execute '/opt/chef-server/bin/chef-server-ctl stop postgresql' do
+  retries 20
+end
+
+ruby_block 'sleep 5' do
+  block { sleep 5 }
+end
