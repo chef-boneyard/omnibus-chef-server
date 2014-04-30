@@ -10,11 +10,21 @@
 
 * Addition of ```nginx['enable_ipv6']``` option  
 
-    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses.
+    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. See the note below on IPv6 support for more on how this flag comes into play.
+
+* Full IPv6 support  
+
+    The Chef server now fully supports IPv6. In the chef-server.rb file, setting ```ip_version "ipv6"``` will turn on IPv6 mode. Note that no equal sign is used when setting this value. This will enable the Chef server to accept IPv6 connections internally and externally. The server will be in dual IPv4/IPv6 mode, so IPv4 connections will continue to function.
+
+  By default the Chef server is in IPv4 mode only. IPv6 mode must  be explicitly enabled.
+
+  Turning on IPv6 mode will automatically set the ```nginx['enable_ipv6']``` flag to true. If IPv6 mode is then turned off, this flag will be set back to false, unless the flag has been explicitly enabled. In the case the flag was explicitly enabled but IPv6 mode is turned off, nginx will continue to accept IPv6 connections, but the internal Chef server components will expect to communicate over IPv4.
+
+  If a value like the bookshelf url is set to a literal IPv6 address, and not a hostname that will be resolved, then the IPv6 address will need to be bracketed (e.g. https://[2001:db8:85a3:8d3:1319:8a2e:370:7348]) or else the Chef server will fail to recognized it as an IPv6 address.
 
 * Added support for proxy/firewalls.  
 
-    Chef server now supports working through proxies and firewalls by making use of the vhost. The Chef server will inspect the vhost to ensure requests are returned properly through the proxy/firewall.  
+    Chef server now supports working through proxies and firewalls by making use of the vhost. The Chef server will inspect the vhost to ensure requests are returned properly through the proxy/firewall.
 
     If S3 is being used to store cookbooks then bookshelf has two settings, ```bookshelf['s3_url']``` and ```bookshelf['s3_external_url']``` that will need to be set to ensure this continues to function as expected.
 
