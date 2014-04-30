@@ -13,13 +13,17 @@
         ]},
   {webmachine, [
           {log_handlers, [
-               {oc_wm_request_logger, [
-                       {file, "<%= File.join(@log_directory, 'requests.log') %>"},
-                       {file_size, 100},  %% Size in MB
-                       {files, 5},
-                       {annotations, [user, req_id]}
-                          ]
-                      }]
+%% Log handling is diabled, since it is redudant (handled by nginx as well)
+%% and this logging also causes backups and crashes when under heavy log
+%% If logging is needed, this can be uncommented to produce some verbose logs
+%%               {oc_wm_request_logger, [
+%%                       {file, "<%= File.join(@log_directory, 'requests.log') %>"},
+%%                       {file_size, 100},  %% Size in MB
+%%                       {files, 5},
+%%                       {annotations, [user, req_id]}
+%%                          ]
+%%                      }
+                        ]
               } ]
       },
  {bookshelf, [{ip, "<%= @listen %>"},
