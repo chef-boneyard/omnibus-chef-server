@@ -8,6 +8,8 @@ pg_helper = PgHelper.new(node)
 pg_user  = pg_helper.db_user
 cookbook = run_context.cookbook_collection['chef-server']
 sql_file = cookbook.preferred_filename_on_disk_location(node, :files, 'sql/widen-cookbook-version.sql', nil)
+path = "/opt/chef-server/embedded/bin:#{ENV['PATH']}"
+env = { 'PATH' => path }
 
 # We need to kill epmd. Erlang will lazy start it when it is needed.
 execute 'pkill -9 -f epmd'
@@ -26,6 +28,7 @@ end
 execute 'apply-widen-cookbook-version' do
   command "psql -U #{pg_user} -d opscode_chef < #{sql_file}"
   user pg_user
+  environment env
   action :nothing
   notifies :run, "execute[sqitchfy_database]", :immediately
 end
@@ -33,6 +36,7 @@ end
 execute 'sqitchfy_database' do
   command "sqitch --db-user #{pg_user} deploy --log-only --to-target @1.0.0"
   cwd '/opt/chef-server/embedded/service/chef-server-schema'
+  environment env
   user pg_user
   action :nothing
   notifies :run, "execute[migrate_database]", :immediately
@@ -41,6 +45,7 @@ end
 execute "migrate_database" do
   command "sqitch --db-user #{pg_user} deploy --verify"
   cwd "/opt/chef-server/embedded/service/chef-server-schema"
+  environment env
   user pg_user
   action :nothing
 end
