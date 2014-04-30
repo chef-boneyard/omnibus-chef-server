@@ -176,7 +176,7 @@ module ChefServer
     def set_default_listen_interface
       ChefServer["bookshelf"]["listen"] ||= ChefServer["default_listen_address"]
       ChefServer["rabbitmq"]["node_ip_address"] ||= ChefServer["default_listen_address"]
-      ChefServer["chef-solr"]["ip_address"] ||= ChefServer["default_listen_address"]
+      ChefServer["chef_solr"]["ip_address"] ||= ChefServer["default_listen_address"]
       ChefServer["postgresql"]["listen_address"] ||= ChefServer["default_listen_address"]
     end
 
