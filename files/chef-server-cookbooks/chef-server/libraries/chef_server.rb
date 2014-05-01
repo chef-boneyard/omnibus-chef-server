@@ -177,7 +177,12 @@ module ChefServer
       ChefServer["bookshelf"]["listen"] ||= ChefServer["default_listen_address"]
       ChefServer["rabbitmq"]["node_ip_address"] ||= ChefServer["default_listen_address"]
       ChefServer["chef_solr"]["ip_address"] ||= ChefServer["default_listen_address"]
-      ChefServer["postgresql"]["listen_address"] ||= ChefServer["default_listen_address"]
+      if ChefServer['default_listen_address'] == "::"
+        # To ensure Postgres listens on duel IPv6/IPv4 when IPv6 enabled, need *, not ::
+        ChefServer["postgresql"]["listen_address"] ||= '*'
+      else
+        ChefServer["postgresql"]["listen_address"] ||= ChefServer["default_listen_address"]
+      end
     end
 
    def set_nginx_ip_mode
