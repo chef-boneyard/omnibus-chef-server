@@ -8,6 +8,8 @@
 
     This allows an upgrade of the Chef server in place. It applies necessary SQL changes without having to backup data and install the server from scratch. It is still encouraged that a data backup is performed first, in case something goes wrong.
 
+  Note that this feature can only currently be used on stand alone Chef server installs and assumes all services used by the Chef server are enabled.
+
 * Addition of ```nginx['enable_ipv6']``` option  
 
     Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. See the note below on IPv6 support for more on how this flag comes into play.
@@ -53,6 +55,8 @@
 * runit update
 
   This change was actually included in the 11.0.8 release, but if you're updating from an older version you should be aware of this.
+
+  Note that these steps apply if you're upgrading the package using a package manager and do not apply with the chef-server-ctl upgrade command.
 
   The runit that manages the Chef server processes was updated to no longer have opscode in its path and config names, switching to use chef-server instead. The change was made in this [commit](https://github.com/opscode/omnibus-chef-server/commit/10e571b85db3113818c2b1665e025e86d34e8654).
 
