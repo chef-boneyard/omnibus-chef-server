@@ -22,7 +22,7 @@
 
   If a value like the bookshelf url is set to a literal IPv6 address, and not a hostname that will be resolved, then the IPv6 address will need to be bracketed (e.g. https://[2001:db8:85a3:8d3:1319:8a2e:370:7348]) or else the Chef server will fail to recognized it as an IPv6 address.
 
-  A change was also made to ensure that all the internal Chef server services listen for IPv6 addresses when this mode is enabled. This involved changing the default listen interface for these services to ```::```, which cause them to listen on IPv6 and IPv4. The IPv4 default interface was also updated to ```0.0.0.0```. This is a change from the previous value of ```127.0.0.1```. If the Chef server is being run in stand alone mode and not in a tiered setup (tiered isn't officially supported, but we know some users run in this mode), the default interface can be set back to ```127.0.0.1``` by setting the following attributes in the chef-server.rb to ```127.0.0.1```.
+  A change was also made to ensure that all the internal Chef server services listen for IPv6 addresses when this mode is enabled. This involved changing the default listen interface for these services to ```::``` (```*``` for postgresql), which cause them to listen on IPv6 and IPv4. The IPv4 default interface was also updated to ```0.0.0.0```. This is a change from the previous value of ```127.0.0.1```. If the Chef server is being run in stand alone mode and not in a tiered setup (tiered isn't officially supported, but we know some users run in this mode), the default interface can be set back to ```127.0.0.1``` by setting the following attributes in the chef-server.rb to ```127.0.0.1```.
 
         bookshelf['listen']
         rabbitmq['node_ip_address']
