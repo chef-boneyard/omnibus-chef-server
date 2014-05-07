@@ -25,6 +25,8 @@
 
   ```chef-server-ctl status```
 
+  If you're upgrading from a pre-11.0.8 version of the Chef server, see the section on the runit update below for a note on possible orphaned processes that may need to be cleaned up.
+
 * Addition of ```nginx['enable_ipv6']``` option  
 
     Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. If full IPv6 support is enabled, this flag will be automatically set (see Full IPv6 support, below). If this flag is enabled without full IPv6 support being enabled, then the Chef server will be able to accept IPv6 connections, but the Chef server components will continue to operate in IPv4 mode internally.
@@ -76,25 +78,30 @@
 
   This change was actually included in the 11.0.8 release, but if you're updating from an older version you should be aware of this.
 
-  Note that these steps apply if you're upgrading the package using a package manager and do not apply with the chef-server-ctl upgrade command.
-
   The runit that manages the Chef server processes was updated to no longer have opscode in its path and config names, switching to use chef-server instead. The change was made in this [commit](https://github.com/opscode/omnibus-chef-server/commit/10e571b85db3113818c2b1665e025e86d34e8654).
 
   While the commit in question attempts to ensure the old process is stopped, in some cases after upgrade orphaned processes have been observed (These are Chef server process that after upgrade instead of being managed by runit are attatched to init (PID 1). The upgrade completes successfully, but the orphaned processes have to be manually killed.
 
-  To avoid this the following steps can be taken to stop all the Chef server processes before doing a package upgrade. You'll need root or sudo access to perform these commands.
+  To avoid this the following steps can be taken to stop all the Chef server processes before doing a package upgrade (*this does not apply when using chef-server-ctl upgrade - see below for instructions about this when doing a chef-server-ctl upgrade*). You'll need root or sudo access to perform these commands.
 
+  If you're doing a package upgrade using your system package manager:
+
+  ```
   initctl stop opscode-runsvdir
 
   chef-server-ctl graceful-kill
 
   pkill -9 -f epmd
-
+  ```
   and then follow the upgrade path of your package manager of choice.
 
   A note on the steps take and the reasons for them. The first step stops the runit process under the old name so it doesn't resurrect any killed processes. Step two stops all the Chef server processes. Step three stops epmd, the Erlang port mapper deamon. Erlang starts a copy of this processes on all systems it runs on. This should actually be managed by runit, but due to an oversight it currently is not.
 
   With these steps taken a clean upgrade from a pre-11.0.8 install can be performed.
+
+  If you're using the chef-server-ctl upgrade command:
+
+  Run the upgrade using the directions described in the chef-server-ctl upgrade section. Do not follow the directions for doing a package upgrade that are immediately above in this section. After the upgrade, inspect the system for any orphaned processes. If orphaned processes are found, it doesn't mean the upgrade process failed. If the upgrade process reported it completed successfully, then it was successful. If orphaned processes exist, they can be safely killed.
 
 ### Bugfixes
 
