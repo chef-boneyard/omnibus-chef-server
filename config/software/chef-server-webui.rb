@@ -16,7 +16,7 @@
 #
 
 name "chef-server-webui"
-default_version "11.1.1"
+default_version "11.1.2"
 
 dependency "ruby"
 dependency "bundler"
