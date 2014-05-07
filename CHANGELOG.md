@@ -27,7 +27,7 @@
 
 * Addition of ```nginx['enable_ipv6']``` option  
 
-    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. See the note below on IPv6 support for more on how this flag comes into play.
+    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. If full IPv6 support is enabled, this flag will be automatically set (see Full IPv6 support, below). If this flag is enabled without full IPv6 support being enabled, then the Chef server will be able to accept IPv6 connections, but the Chef server components will continue to operate in IPv4 mode internally.
 
 * Full IPv6 support  
 
@@ -41,10 +41,11 @@
 
   A change was also made to ensure that all the internal Chef server services listen for IPv6 addresses when this mode is enabled. This involved changing the default listen interface for these services to ```::``` (```*``` for postgresql), which cause them to listen on IPv6 and IPv4. The IPv4 default interface was also updated to ```0.0.0.0```. This is a change from the previous value of ```127.0.0.1```. If the Chef server is being run in stand alone mode and not in a tiered setup (tiered isn't officially supported, but we know some users run in this mode), the default interface can be set back to ```127.0.0.1``` by setting the following attributes in the chef-server.rb to ```127.0.0.1```.
 
-        bookshelf['listen']
-        rabbitmq['node_ip_address']
-        chef-solr['ip_address']
-
+  ```
+    bookshelf['listen']
+    rabbitmq['node_ip_address']
+    chef-solr['ip_address']
+  ```
   The ```postgresql['listen_address']``` should be set to ```localhost``` instead of ```127.0.0.1```
 
 * Added support for proxy/firewalls.  
