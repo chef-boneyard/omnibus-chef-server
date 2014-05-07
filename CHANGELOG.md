@@ -6,9 +6,24 @@
 
 * Addition of a ```chef-server-ctl upgrade command```  
 
-    This allows an upgrade of the Chef server in place. It applies necessary SQL changes without having to backup data and install the server from scratch. It is still encouraged that a data backup is performed first, in case something goes wrong.
+    This allows an upgrade of the Chef server in place. It applies necessary SQL changes and other updates without having to install the server from scratch and without having to reimport data.
 
-  Note that this feature can only currently be used on stand alone Chef server installs and assumes all services used by the Chef server are enabled.
+  **This feature can only currently be used on stand alone Chef server installs and assumes all services used by the Chef server are enabled.**
+
+  **Only upgrades from 11.0.4 and newer builds of the Chef server are supported. For older installs, the knife download and upload process described in this [blog post](http://www.getchef.com/blog/2013/03/12/5106/) should be used.**
+
+  **It is strongly encouraged that a data backup is performed first, in case something goes wrong.**
+
+  To use the upgrade command:
+  ```
+    chef-server-ctl stop # Ensure all the services shut down
+    dpkg -i package.deb # or rpm -U package.rpm # Update the package on your system
+    chef-server-ctl upgrade
+    chef-server-ctl start # Give the system time to bring all the services back up
+  ```
+  You can always check the status of the Chef server services with:
+
+  ```chef-server-ctl status```
 
 * Addition of ```nginx['enable_ipv6']``` option  
 
