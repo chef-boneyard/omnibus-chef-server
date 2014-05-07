@@ -98,11 +98,12 @@
 
 ### Individual Component changes
 
-#### [chef-server-webui 11.1.1](https://github.com/opscode/chef-server-webui/releases/tag/11.1.1)
+#### [chef-server-webui 11.1.2](https://github.com/opscode/chef-server-webui/releases/tag/11.1.2)
 
 An update from [chef-server-webui 11.0.10](https://github.com/opscode/chef-server-webui/releases/tag/11.0.10)  
 Also see [chef-server-webui 11.1](https://github.com/opscode/chef-server-webui/releases/tag/11.1)
 
+* [CHEF-5284](https://tickets.opscode.com/browse/CHEF-5284) Upgrade Rails to 3.2.18  
 * [CHEF-5242](https://tickets.opscode.com/browse/CHEF-5242) Fix Extra Apostrophe in webui JSON editor  
 * [CHEF-5056](https://tickets.opscode.com/browse/CHEF-5056) Upgrade Rails to 3.2.17  
 * [CHEF-4858](https://tickets.opscode.com/browse/CHEF-4858) Upgrade chef-server-webui Rails to 3.2.16  
@@ -116,7 +117,7 @@ Also see [chef-server-webui 11.1](https://github.com/opscode/chef-server-webui/r
 * [CHEF-3267](https://tickets.opscode.com/browse/CHEF-3267) webui status page doesn't respect environment selection  
 * [CHEF-2060](https://tickets.opscode.com/browse/CHEF-2060) Auto-complete is enabled in Chef html - /users/login_exec  
 
-The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/chef-server-webui/compare/11.0.10...11.1.1)
+The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/chef-server-webui/compare/11.0.10...11.1.2)
 
 #### [omnibus-software a08918d84cb4ae31d4c749167def662350aa6235](https://github.com/opscode/omnibus-software/commits/a08918d84cb4ae31d4c749167def662350aa6235)
 
