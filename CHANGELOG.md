@@ -58,9 +58,9 @@
 
     Chef server now supports working through proxies and firewalls by making use of the vhost. The Chef server will inspect the vhost to ensure requests are returned properly through the proxy/firewall.
 
-    If S3 is being used to store cookbooks then bookshelf has two settings, ```bookshelf['s3_url']``` and ```bookshelf['s3_external_url']``` that will need to be set to ensure this continues to function as expected.
+    If S3 is being used to store cookbooks then bookshelf has two settings, ```bookshelf['url']``` and ```bookshelf['external_url']``` that will need to be set to ensure this continues to function as expected.
 
-    ```bookshelf['s3_url']``` is the S3 url used by the Chef server to communicate with S3. ```bookshelf['s3_external_url']``` is the S3 url that will be returned to clients so they can comminicate with S3. This is necessary since the clients live on the other side of the proxy/firewall from the server.
+    ```bookshelf['url']``` is the S3 url used by the Chef server to communicate with S3. ```bookshelf['external_url']``` is the S3 url that will be returned to clients so they can comminicate with S3. This is necessary since the clients live on the other side of the proxy/firewall from the server.
 
 * Change back to gecode depsolver
 
