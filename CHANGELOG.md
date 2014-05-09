@@ -19,7 +19,7 @@
     chef-server-ctl stop # Ensure all the services shut down
     dpkg -i package.deb # or rpm -U package.rpm # Update the package on your system
     chef-server-ctl upgrade
-    chef-server-ctl start # Give the system time to bring all the services back up
+    chef-server-ctl restart # Give the system time to bring all the services back up; restart is used to ensure all the config files are properly reloaded
   ```
   You can always check the status of the Chef server services with:
 
