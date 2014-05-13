@@ -27,10 +27,6 @@
 
   If you're upgrading from a pre-11.0.8 version of the Chef server, see the section on the runit update below for a note on possible orphaned processes that may need to be cleaned up.
 
-* Addition of ```nginx['enable_ipv6']``` option  
-
-    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. If full IPv6 support is enabled, this flag will be automatically set (see Full IPv6 support, below). If this flag is enabled without full IPv6 support being enabled, then the Chef server will be able to accept IPv6 connections, but the Chef server components will continue to operate in IPv4 mode internally.
-
 * Full IPv6 support  
 
     The Chef server now fully supports IPv6. In the chef-server.rb file, setting ```ip_version "ipv6"``` will turn on IPv6 mode. Note that no equal sign is used when setting this value. This will enable the Chef server to accept IPv6 connections internally and externally. The server will be in dual IPv4/IPv6 mode, so IPv4 connections will continue to function.
@@ -54,13 +50,18 @@
 
   That will return the listen interfaces back to the defaults that existed in earlier versions of the Chef server.
 
+* Addition of ```nginx['enable_ipv6']``` option  
+
+    Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. If full IPv6 support is enabled, this flag will be automatically set (see Full IPv6 support, above). If this flag is enabled without full IPv6 support being enabled, then the Chef server will be able to accept IPv6 connections, but the Chef server components will continue to operate in IPv4 mode internally.
+
+
 * Added support for proxy/firewalls.  
 
-    Chef server now supports working through proxies and firewalls by making use of the vhost. The Chef server will inspect the vhost to ensure requests are returned properly through the proxy/firewall.
+    Chef server now supports working through proxies and firewalls by providing settings that expose where clients should retrieve cookbooks from.
 
-    If S3 is being used to store cookbooks then bookshelf has two settings, ```bookshelf['url']``` and ```bookshelf['external_url']``` that will need to be set to ensure this continues to function as expected.
+  ```bookshelf['external_url']``` is the setting used to specify the URL from which the chef-client will download cookbooks. By default, this is the host header provided by the chef-client when it contacts the Chef server. When cookbook storage is located behind a firewall and/or when the host header is not used, this value must be a URL that is accessible to the chef-client.
 
-    ```bookshelf['url']``` is the S3 url used by the Chef server to communicate with S3. ```bookshelf['external_url']``` is the S3 url that will be returned to clients so they can comminicate with S3. This is necessary since the clients live on the other side of the proxy/firewall from the server.
+  ```bookshelf['url']``` is the location the Chef server should use to store cookbooks.
 
 * Change back to gecode depsolver
 
