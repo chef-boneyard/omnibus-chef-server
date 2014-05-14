@@ -14,6 +14,8 @@
 
   **It is strongly encouraged that a data backup is performed first, in case something goes wrong.**
 
+  **In the postgres logs, the following error may be present during an upgrade: ```ERROR: duplicate key value violates unique constraint "checksums_pkey"```. This is expected and does not represnt an issue with the upgrade.**
+
   To use the upgrade command:
   ```
     chef-server-ctl stop # Ensure all the services shut down
@@ -49,6 +51,8 @@
   The ```postgresql['listen_address']``` should be set to ```localhost``` instead of ```127.0.0.1```
 
   That will return the listen interfaces back to the defaults that existed in earlier versions of the Chef server.
+
+  **Due to the change in these default listen interfaces it may be necessary to update firewalls rules or else set the listen addresses back to the old defaults.**
 
 * Addition of ```nginx['enable_ipv6']``` option  
 
