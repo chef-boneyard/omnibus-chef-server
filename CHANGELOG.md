@@ -14,7 +14,7 @@
 
   **It is strongly encouraged that a data backup is performed first, in case something goes wrong.**
 
-  **In the postgres logs, the following error may be present during an upgrade: ```ERROR: duplicate key value violates unique constraint "checksums_pkey"```. This is expected and does not represnt an issue with the upgrade.**
+  **In the postgres logs, the following error may be present during an upgrade: ```ERROR: duplicate key value violates unique constraint "checksums_pkey"```. This is expected and does not represent an issue with the upgrade.**
 
   To use the upgrade command:
   ```
