@@ -19,7 +19,12 @@
 
 case node["platform_family"]
 when "debian"
-  include_recipe "runit::upstart"
+  case node["platform"]
+  when "debian"
+    include_recipe "runit::sysvinit"
+  else # this catches ubuntu and any random ubuntu-derived debian-ish distros
+    include_recipe "runit::upstart"
+  end
 when "rhel"
   case node["platform"]
   when "amazon", "xenserver"
