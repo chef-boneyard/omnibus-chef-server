@@ -16,7 +16,8 @@
 #
 
 name "erchef"
-default_version "1.4.0"
+#default_version "1.4.0"
+default_version "mp/users-lock"
 
 dependency "erlang"
 dependency "rsync"
