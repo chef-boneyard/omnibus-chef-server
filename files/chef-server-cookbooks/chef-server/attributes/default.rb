@@ -213,8 +213,8 @@ default['chef_server']['nginx']['url'] = "https://#{node['fqdn']}"
 #default['chef_server']['nginx']['ssl_protocols'] = "-ALL +SSLv3 +TLSv1 +TLSv1.1 +TLSv1.2"
 #default['chef_server']['nginx']['ssl_ciphers'] = "HIGH:!MEDIUM:!LOW:!ADH:!kEDH:!aNULL:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
 # The following favors performance and compatibility, addresses BEAST, and should pass a PCI audit
-default['chef_server']['nginx']['ssl_protocols'] = "SSLv3 TLSv1 TLSv1.1 TLSv1.2"
-default['chef_server']['nginx']['ssl_ciphers'] = "RC4-SHA:RC4-MD5:RC4:RSA:HIGH:MEDIUM:!LOW:!kEDH:!aNULL:!ADH:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
+default['chef_server']['nginx']['ssl_protocols'] = "TLSv1 TLSv1.1 TLSv1.2"
+default['chef_server']['nginx']['ssl_ciphers'] = "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:AES128:AES256:RC4-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK"
 default['chef_server']['nginx']['ssl_certificate'] = nil
 default['chef_server']['nginx']['ssl_certificate_key'] = nil
 default['chef_server']['nginx']['ssl_country_name'] = "US"
