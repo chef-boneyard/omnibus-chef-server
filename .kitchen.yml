@@ -1,0 +1,29 @@
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 2048
+  synced_folders:
+    - ['.', '/home/vagrant/chef-server']
+
+provisioner:
+  require_chef_omnibus: 11.8.0
+
+platforms:
+  - name: ubuntu-12.04
+    run_list: apt::default
+  - name: ubuntu-11.04
+    run_list: apt::default
+  - name: ubuntu-10.04
+    run_list: apt::default
+  - name: centos-5.10
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list: omnibus::default
+    attributes:
+      omnibus:
+        build_user:  vagrant
+        build_dir:   /home/vagrant/chef-server
+        install_dir: /opt/chef-server
