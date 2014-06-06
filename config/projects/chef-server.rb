@@ -26,6 +26,9 @@ build_iteration 1
 # creates required build directories
 dependency "preparation"
 
+#override
+override :rebar, version: "2.0.0"
+
 # global
 dependency "chef-gem" # for embedded chef-solo
 dependency "chef-server-cookbooks" # used by chef-server-ctl reconfigure
