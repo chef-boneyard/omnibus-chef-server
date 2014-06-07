@@ -1,14 +1,10 @@
 *.gem
 .bundle
+.kitchen/
+.kitchen.local.yml
 vendor/bundle
 pkg/*
 .vagrant
 bin/*
-files/chef-server-cookbooks/cache/
-omnibus.rb
-files/msi/ChefClient-Config.wxi
-cookbooks
+files/**/cache/
 vendor/cookbooks
-build_timestamp
-ldd.out
-jenkins/chef-solo
