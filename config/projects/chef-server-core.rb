@@ -29,7 +29,6 @@ dependency "preparation"
 
 # global
 dependency "chef-gem" # for embedded chef-solo
-dependency "pg-gem" # For pg gem used in cookbooks
 dependency "chef-server-cookbooks" # used by chef-server-ctl reconfigure
 dependency "chef-server-scripts" # assorted scripts used by installed instance
 dependency "chef-server-ctl" # additional project-specific chef-server-ctl subcommands
@@ -38,6 +37,7 @@ dependency "runit"
 
 # the backend
 dependency "postgresql"
+dependency "pg-gem" # For pg gem used in cookbooks
 dependency "rabbitmq"
 dependency "chef-solr"
 dependency "chef-expander"

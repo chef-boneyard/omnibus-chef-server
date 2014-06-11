@@ -23,6 +23,6 @@ dependency "ruby"
 dependency "rubygems"
 
 build do
-  gem "install pg -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{version}"
+  gem "install pg -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{version} -- --with-pg-config=#{install_dir}/embedded/bin"
 end
 
