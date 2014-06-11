@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-chef_gem 'pg'
-
 postgresql_dir = node['chef_server']['postgresql']['dir']
 postgresql_data_dir = node['chef_server']['postgresql']['data_dir']
 postgresql_data_dir_symlink = File.join(postgresql_dir, "data")
