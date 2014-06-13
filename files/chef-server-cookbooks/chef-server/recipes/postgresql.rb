@@ -130,14 +130,24 @@ if node['chef_server']['bootstrap']['enable']
   end
 end
 
-###
-# Create the database, migrate it, and create the users we need, and grant them
-# privileges.
-###
+# Create the databases
 pg_helper = PgHelper.new(node)
 pg_port = node['chef_server']['postgresql']['port']
 pg_user = node['chef_server']['postgresql']['username']
 bin_dir = "/opt/chef-server/embedded/bin"
+
+# Set up a database for the superuser to log into automatically
+execute "create #{pg_user} database" do
+  command "#{bin_dir}/createdb -T template0 --port #{pg_port} #{pg_user}"
+  user pg_user
+  not_if { !pg_helper.is_running? || pg_helper.database_exists?(pg_user) }
+  retries 30
+end
+
+###
+# Create the opscode_chef database, migrate it, and create the users we need, and grant them
+# privileges.
+###
 db_name = "opscode_chef"
 
 execute "create #{db_name} database" do
@@ -155,34 +165,27 @@ execute "install_schema" do
   action :nothing
 end
 
-sql_user        = node['chef_server']['postgresql']['sql_user']
-sql_user_passwd = node['chef_server']['postgresql']['sql_password']
+# Create Database Users
 
-execute "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"CREATE USER #{sql_user} WITH SUPERUSER ENCRYPTED PASSWORD '#{sql_user_passwd}'\"" do
-  cwd chef_db_dir
-  user pg_user
-  notifies :run, "execute[grant #{db_name} privileges]", :immediately
-  not_if { !pg_helper.is_running? || pg_helper.sql_user_exists? }
+chef_server_pg_user node['chef_server']['postgresql']['sql_user'] do
+  password node['chef_server']['postgresql']['sql_password']
+  superuser false
 end
 
-execute "grant #{db_name} privileges" do
-  command "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"GRANT ALL PRIVILEGES ON DATABASE #{db_name} TO #{sql_user}\""
-  user pg_user
-  action :nothing
+chef_server_pg_user_table_access node['chef_server']['postgresql']['sql_user'] do
+  database 'opscode_chef'
+  schema 'public'
+  access_profile :write
 end
 
-sql_ro_user = node['chef_server']['postgresql']['sql_ro_user']
-sql_ro_user_passwd = node['chef_server']['postgresql']['sql_ro_password']
-
-execute "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"CREATE USER #{sql_ro_user} WITH SUPERUSER ENCRYPTED PASSWORD '#{sql_ro_user_passwd}'\"" do
-  cwd chef_db_dir
-  user pg_user
-  notifies :run, "execute[grant #{db_name}_ro privileges]", :immediately
-  not_if { !pg_helper.is_running? || pg_helper.sql_ro_user_exists? }
+chef_server_pg_user node['chef_server']['postgresql']['sql_ro_user'] do
+  password node['chef_server']['postgresql']['sql_ro_password']
+  superuser false
 end
 
-execute "grant #{db_name}_ro privileges" do
-  command "#{bin_dir}/psql --port #{pg_port} -d '#{db_name}' -c \"GRANT ALL PRIVILEGES ON DATABASE #{db_name} TO #{sql_ro_user}\""
-  user pg_user
-  action :nothing
+chef_server_pg_user_table_access node['chef_server']['postgresql']['sql_ro_user'] do
+  database 'opscode_chef'
+  schema 'public'
+  access_profile :read
 end
+

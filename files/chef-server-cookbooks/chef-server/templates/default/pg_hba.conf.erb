@@ -60,16 +60,12 @@
 #
 
 
-# TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+# TYPE  DATABASE  USER  CIDR-ADDRESS                                    METHOD
 
 # "local" is for Unix domain socket connections only
-local   all         all                               trust
-
-<% node['chef_server']['postgresql']['trust_auth_cidr_addresses'].each do |cidr| %>
-host    all         all         <%= cidr %>           trust
-<% end %>
+local   all       <%= node['chef_server']['postgresql']['username'] %>  peer
 
 <% node['chef_server']['postgresql']['md5_auth_cidr_addresses'].each do |cidr| %>
-host    all         all         <%= cidr %>           md5
+host    all       all   <%= cidr %>                                     md5
 <% end %>
 
