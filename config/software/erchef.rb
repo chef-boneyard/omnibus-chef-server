@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-default_version "1.4.0"
+default_version "of/lock_jiffy"
 
 dependency "erlang"
 dependency "rsync"
