@@ -356,7 +356,7 @@ else
     let(:platform_map_json) do
       <<-E
 {
-    "build_os=centos-5,machine_architecture=x64,role=oss-builder": [
+    "build_os=el-5,machine_architecture=x64,role=oss-builder": [
         [
             "el",
             "5",
@@ -368,7 +368,7 @@ else
             "x86_64"
         ]
     ],
-    "build_os=centos-5,machine_architecture=x86,role=oss-builder": [
+    "build_os=el-5,machine_architecture=x86,role=oss-builder": [
         [
             "el",
             "5",
@@ -411,12 +411,12 @@ E
 
     let(:directory_contents) do
       %w[
-        build_os=centos-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm.metadata.json
-        build_os=centos-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm
-        build_os=centos-5,machine_architecture=x64,role=oss-builder/pkg/BUILD_VERSION
-        build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm.metadata.json
-        build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
-        build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/BUILD_VERSION
+        build_os=el-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm.metadata.json
+        build_os=el-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm
+        build_os=el-5,machine_architecture=x64,role=oss-builder/pkg/BUILD_VERSION
+        build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm.metadata.json
+        build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
+        build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/BUILD_VERSION
       ]
     end
 
@@ -447,8 +447,8 @@ E
     it "finds the package files among the artifacts" do
       Dir.should_receive(:[]).with("**/pkg/*").and_return(directory_contents)
       expected = %w[
-        build_os=centos-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm
-        build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
+        build_os=el-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm
+        build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
       ]
       artifact_collection.package_paths.should == expected
     end
@@ -474,20 +474,20 @@ E
         Dir.should_receive(:[]).with("**/pkg/*").and_return(directory_contents)
 
         artifact_collection.should have(2).artifacts
-        centos5_64bit_artifact = artifact_collection.artifacts.first
+        el5_64bit_artifact = artifact_collection.artifacts.first
 
-        path = "build_os=centos-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm"
-        centos5_64bit_artifact.path.should == path
+        path = "build_os=el-5,machine_architecture=x64,role=oss-builder/pkg/demoproject-10.22.0-1.el5.x86_64.rpm"
+        el5_64bit_artifact.path.should == path
 
         platforms = [ [ "el", "5", "x86_64" ], [ "sles","11.2","x86_64" ] ]
-        centos5_64bit_artifact.platforms.should == platforms
+        el5_64bit_artifact.platforms.should == platforms
       end
 
       context "and some expected packages are missing" do
         let(:directory_contents) do
           %w[
-            build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
-            build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/BUILD_VERSION
+            build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-10.22.0-1.el5.i686.rpm
+            build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/BUILD_VERSION
           ]
         end
 
@@ -496,7 +496,7 @@ E
         end
 
         it "errors out verifying all packages are available" do
-          err_msg = "Missing packages for config(s): 'build_os=centos-5,machine_architecture=x64,role=oss-builder'"
+          err_msg = "Missing packages for config(s): 'build_os=el-5,machine_architecture=x64,role=oss-builder'"
           lambda {artifact_collection.artifacts}.should raise_error(ArtifactCollection::MissingArtifact, err_msg)
         end
 
@@ -507,7 +507,7 @@ E
 
   describe Artifact do
 
-    let(:path) { "build_os=centos-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-11.4.0-1.el5.x86_64.rpm" }
+    let(:path) { "build_os=el-5,machine_architecture=x86,role=oss-builder/pkg/demoproject-11.4.0-1.el5.x86_64.rpm" }
 
     let(:content) { StringIO.new("this is the package content\n") }
 
