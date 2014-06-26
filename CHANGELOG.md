@@ -1,5 +1,10 @@
 # Chef Server Changelog
 
+## 11.1.3 (2014-06-26)
+
+### chef-server-cookbooks
+* Address a PostgreSQL configuration error. The defect allows any local user on the system hosting the Chef Server’s PostgreSQL components full access to databases.
+
 ## 11.1.1 (2014-06-05)
 
 ### openssl 1.0.1h
