@@ -1,0 +1,11 @@
+[Unit]
+Description=Embedded Chef Server Service Runner
+Documentation=http://getchef.com
+After=network.target
+
+[Service]
+ExecStart=/opt/chef-server/embedded/bin/runsvdir-start
+ExecStopPost=pkill -HUP -P 1 runsv$$
+
+[Install]
+WantedBy=multi-user.target
