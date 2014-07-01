@@ -1,3 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'mixlib-shellout', '~> 1.3'
