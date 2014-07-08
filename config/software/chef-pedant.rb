@@ -17,7 +17,7 @@
 
 name "chef-pedant"
 
-default_version "jk/org_clients"
+default_version "master"
 
 dependency "ruby"
 dependency "bundler"
