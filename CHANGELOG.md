@@ -1,5 +1,11 @@
 # Chef Server Changelog
 
+## 11.1.4 Unreleased
+
+### [chef-server-webui 11.1.3](https://github.com/opscode/chef-server-webui/releases/tag/11.1.3)
+[CHEF-4859](https://tickets.opscode.com/browse/CHEF-4859) Support rendering non-ascii characters in cookbook files
+
+
 ## 11.1.3 (2014-06-26)
 
 ### chef-server-cookbooks
