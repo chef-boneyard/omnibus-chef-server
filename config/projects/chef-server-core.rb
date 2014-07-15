@@ -16,8 +16,8 @@
 #
 
 name "chef-server-core"
-maintainer "Opscode, Inc."
-homepage "http://www.opscode.com"
+maintainer "Chef Software, Inc."
+homepage   "http://www.getchef.com"
 
 replaces        "chef-server-core"
 install_path    "/opt/chef-server"
