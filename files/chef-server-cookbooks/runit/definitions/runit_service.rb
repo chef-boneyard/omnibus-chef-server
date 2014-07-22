@@ -152,10 +152,8 @@ define :runit_service, :directory => nil, :only_if => false, :finish_script => f
       end
     end
 
-    unless node[:platform] == "gentoo"
-      link service_dir_name do
-        to sv_dir_name
-      end
+    link service_dir_name do
+      to sv_dir_name
     end
 
     ruby_block "supervise_#{params[:name]}_sleep" do
