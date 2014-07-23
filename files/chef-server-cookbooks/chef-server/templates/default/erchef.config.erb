@@ -114,7 +114,8 @@
                   {s3_external_url, <%= @helper.erl_atom_or_string(node['chef_server']['bookshelf']['external_url']) %>},
                   {s3_url_ttl, <%= @s3_url_ttl %>},
                   {s3_parallel_ops_timeout, <%= @s3_parallel_ops_timeout %>},
-                  {s3_parallel_ops_fanout, <%= @s3_parallel_ops_fanout %>}
+                  {s3_parallel_ops_fanout, <%= @s3_parallel_ops_fanout %>},
+                  {depsolver_timeout, <%= @depsolver_timeout %>}
                  ]},
   {stats_hero, [
                {udp_socket_pool_size, 1 },
