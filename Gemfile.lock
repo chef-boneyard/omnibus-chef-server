@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/opscode/omnibus-ruby.git
-  revision: 0ba833567fd2e80215d99fd54d2b9d741c4a37fd
+  revision: d10813351b3554b878970d28f619da49576f37d5
   branch: 2.0-stable
   specs:
     omnibus (2.0.1)
