@@ -167,6 +167,14 @@ end
 
 # Create Database Users
 
+execute '/opt/chef-server/bin/chef-server-ctl start postgresql' do
+  retries 20
+end
+
+ruby_block 'sleep 5' do
+  block { sleep 5 }
+end
+
 chef_server_pg_user node['chef_server']['postgresql']['sql_user'] do
   password node['chef_server']['postgresql']['sql_password']
   superuser false
