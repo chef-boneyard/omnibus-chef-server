@@ -42,9 +42,16 @@ class PgHelper
   end
 
   def managed_by_sqitch?
+    # This method has an issue: if sqitch isn't on the box, a 1 will
+    # be returned. However, if sqitch is on the box and verify fails,
+    # a one will also be returned.
+    # In the event verify fails and sqitch is on the box, a later call
+    # to deploy will fail. A failed deploy could therefore be a
+    # symptom that verify failed.
     cmd = run_command "sqitch --db-user #{db_user} verify",
       :cwd     => '/opt/chef-server/embedded/service/chef-server-schema',
-      :returns => [0, 1, 2]
+      :user    => db_user,
+      :returns => [0, 1]
     cmd.exitstatus == 0
   end
 
