@@ -168,6 +168,7 @@ end
 # Create Database Users
 
 # Save the postgres state, so we can ensure we finish in the same state
+# Note that this is evaluated at compile time of the chef run, not runtime
 pg_start_state = pg_helper.is_running?
 
 # Start postgres, since it needs to be running to put users in place
