@@ -12,7 +12,10 @@ path = "/opt/chef-server/embedded/bin:#{ENV['PATH']}"
 env = { 'PATH' => path }
 
 # We need to kill epmd. Erlang will lazy start it when it is needed.
-execute 'pkill -9 -f epmd'
+# If for some reason epmd is not currently running, we still want to move on
+execute 'pkill -9 -f epmd' do
+  returns [0,1]
+end
 
 # Make sure postgresql is running so we can check the db schema on file.
 execute '/opt/chef-server/bin/chef-server-ctl start postgresql' do

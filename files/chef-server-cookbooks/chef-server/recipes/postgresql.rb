@@ -167,6 +167,20 @@ end
 
 # Create Database Users
 
+# Save the postgres state, so we can ensure we finish in the same state
+# Note that this is evaluated at compile time of the chef run, not runtime
+pg_start_state = pg_helper.is_running?
+
+# Start postgres, since it needs to be running to put users in place
+execute '/opt/chef-server/bin/chef-server-ctl start postgresql' do
+  only_if { !pg_helper.is_running? }
+  retries 30
+end
+
+ruby_block 'sleep 5' do
+  block { sleep 5 }
+end
+
 chef_server_pg_user node['chef_server']['postgresql']['sql_user'] do
   password node['chef_server']['postgresql']['sql_password']
   superuser false
@@ -187,5 +201,11 @@ chef_server_pg_user_table_access node['chef_server']['postgresql']['sql_ro_user'
   database 'opscode_chef'
   schema 'public'
   access_profile :read
+end
+
+# Return postgres to the state it was in before installing users
+execute 'opt/chef-server/bin/chef-server-ctl stop postgresql' do
+  not_if { pg_start_state }
+  retries 30
 end
 
