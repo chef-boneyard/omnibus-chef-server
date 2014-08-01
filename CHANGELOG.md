@@ -9,6 +9,7 @@
 [PR 63](https://github.com/opscode/omnibus-chef-server/pull/63) increase s3_url_ttl from 15m to 8h  
 [PR 73](https://github.com/opscode/omnibus-chef-server/pull/73) `initctl stop chef-server-runsvdir` leaves orphaned processes  
 [PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
+[PR 78](https://github.com/opscode/omnibus-chef-server/pull/78) Fix runit-cookbook for gentoo  
 [PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
 [PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script
 
