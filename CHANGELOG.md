@@ -7,8 +7,9 @@
 [CHEF-5305](https://tickets.opscode.com/browse/CHEF-5305) Open Source Chef Server 11.1.0 introduces incompatibility with Debian GNU/Linux  
 [CHEF ISSUE 1595](https://github.com/opscode/chef/issues/1595) chef-server 11.1.3-1 upgrade fails  
 [PR 63](https://github.com/opscode/omnibus-chef-server/pull/63) increase s3_url_ttl from 15m to 8h  
-[PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
 [PR 73](https://github.com/opscode/omnibus-chef-server/pull/73) `initctl stop chef-server-runsvdir` leaves orphaned processes  
+[PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
+[PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
 [PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script
 
 ### [chef-server-webui 11.1.3](https://github.com/opscode/chef-server-webui/releases/tag/11.1.3)
