@@ -11,7 +11,8 @@
 [PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
 [PR 78](https://github.com/opscode/omnibus-chef-server/pull/78) Fix runit-cookbook for gentoo  
 [PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
-[PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script
+[PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script  
+[PR 83](https://github.com/opscode/omnibus-chef-server/pull/83) Update postgres to 9.2.9 to pick up security patches  
 
 ### [chef-server-webui 11.1.3](https://github.com/opscode/chef-server-webui/releases/tag/11.1.3)
 [CHEF-4859](https://tickets.opscode.com/browse/CHEF-4859) Support rendering non-ascii characters in cookbook files
