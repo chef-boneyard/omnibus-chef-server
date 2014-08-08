@@ -28,6 +28,9 @@ ChefServerWebui::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :notify
 
@@ -42,5 +45,4 @@ ChefServerWebui::Application.configure do
   config.admin_user_name =  "<%= @web_ui_admin_user_name %>"
   config.admin_default_password = "<%= @web_ui_admin_default_password %>"
   config.rest_client_custom_http_headers = {}
-
 end
