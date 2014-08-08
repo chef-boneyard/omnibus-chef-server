@@ -84,6 +84,8 @@ server {
     set $my_upstream erchef;
     if ($http_x_ops_userid = "") {
       set $my_upstream chef_server_webui;
+      add_header Pragma "no-cache";
+      add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0, s-maxage=0, private";
     }
     proxy_redirect http://$my_upstream /;
     proxy_pass http://$my_upstream;
