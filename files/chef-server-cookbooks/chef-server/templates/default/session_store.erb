@@ -1,4 +1,9 @@
 # Be sure to restart your server when you modify this file.
 
-ChefServerWebui::Application.config.session_store :cookie_store, :key => '<%= @session_key %>', :domain => <%= @cookie_domain == "all" ? ':all' : "'#{@cookie_domain}'" %>
+session_store_options = { :key => '<%= @session_key %>' }
 
+<% if @cookie_domain %>
+session_store_options[:domain] = <%= @cookie_domain == 'all' ? ':all' : "'#{@cookie_domain}'" %>
+<% end %>
+
+ChefServerWebui::Application.config.session_store :cookie_store, session_store_options
