@@ -6,6 +6,9 @@
 
 [CHEF-5305](https://tickets.opscode.com/browse/CHEF-5305) Open Source Chef Server 11.1.0 introduces incompatibility with Debian GNU/Linux  
 [CHEF ISSUE 1595](https://github.com/opscode/chef/issues/1595) chef-server 11.1.3-1 upgrade fails  
+[CHEF ISSUE 1757](https://github.com/opscode/chef/issues/1757) Sensitive Pages are Cached  
+[CHEF ISSUE 1759](https://github.com/opscode/chef/issues/1759) Chef not using Secure Cookie with SSL Enabled  
+[CHEF ISSUE 1780](https://github.com/opscode/chef/issues/1780) Chef server doesn't work on ec2 flawlessly  
 [PR 63](https://github.com/opscode/omnibus-chef-server/pull/63) increase s3_url_ttl from 15m to 8h  
 [PR 73](https://github.com/opscode/omnibus-chef-server/pull/73) `initctl stop chef-server-runsvdir` leaves orphaned processes  
 [PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
@@ -13,6 +16,11 @@
 [PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
 [PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script  
 [PR 83](https://github.com/opscode/omnibus-chef-server/pull/83) Update postgres to 9.2.9 to pick up security patches  
+
+### [chef-server-webui 11.1.4](https://github.com/opscode/chef-server-webui/releases/tag/11.1.4)
+[CHEF ISSUE 1761](https://github.com/opscode/chef/issues/1761) Autocomplete is enabled for Users Page  
+[CHEF ISSUE 1762](https://github.com/opscode/chef/issues/1762) Flass Attr allowScriptAccess insecurely set to Always  
+[PR 33](https://github.com/opscode/chef-server-webui/pull/33) fix layout error and add Pry  
 
 ### [chef-server-webui 11.1.3](https://github.com/opscode/chef-server-webui/releases/tag/11.1.3)
 [CHEF-4859](https://tickets.opscode.com/browse/CHEF-4859) Support rendering non-ascii characters in cookbook files
