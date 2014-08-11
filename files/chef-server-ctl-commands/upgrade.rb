@@ -8,7 +8,7 @@ add_command "upgrade", "Upgrade your private chef installation. Add the '--no-op
   use_why_run_mode = ARGV.include?("--no-op")
 
   # Our upgrade process is really just a special chef run
-  status = run_command('chef-server-ctl stop')
+  status = run_command('/opt/chef-server/bin/chef-server-ctl stop')
   exit! 1 unless status.success?
   command = ["chef-solo",
              "--config #{base_path}/embedded/cookbooks/solo.rb",
@@ -18,6 +18,6 @@ add_command "upgrade", "Upgrade your private chef installation. Add the '--no-op
   status = run_command(command.join(" "))
   exit! 1 unless status.success?
   reconfigure(false)
-  status = run_command('chef-server-ctl restart')
+  status = run_command('/opt/chef-server/bin/chef-server-ctl restart')
   exit! 1 unless status.success?
 end
