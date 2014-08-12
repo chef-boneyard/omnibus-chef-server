@@ -16,6 +16,8 @@
 [PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
 [PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script  
 [PR 83](https://github.com/opscode/omnibus-chef-server/pull/83) Update postgres to 9.2.9 to pick up security patches  
+[PR 84](https://github.com/opscode/omnibus-chef-server/pull/84) Automate the stop and restart before/after the upgrade command  
+[PR 89](https://github.com/opscode/omnibus-chef-server/pull/89) Bump openssl to 1.0.1i  
 
 ### [chef-server-webui 11.1.4](https://github.com/opscode/chef-server-webui/releases/tag/11.1.4)
 [CHEF ISSUE 1761](https://github.com/opscode/chef/issues/1761) Autocomplete is enabled for Users Page  
