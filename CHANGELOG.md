@@ -42,6 +42,9 @@
 [PR 84](https://github.com/opscode/omnibus-chef-server/pull/84) Automate the stop and restart before/after the upgrade command  
 [PR 89](https://github.com/opscode/omnibus-chef-server/pull/89) Bump openssl to 1.0.1i  
 
+### [chef-server-webui 11.1.5](https://github.com/opscode/chef-server-webui/releases/tag/11.1.5)
+[Commit b48a2d7](https://github.com/opscode/chef-server-webui/commit/b48a2d7953390ae2dbec28127c2893f2b6175c0a) Fix syntax error preventing login screen from rendering  
+
 ### [chef-server-webui 11.1.4](https://github.com/opscode/chef-server-webui/releases/tag/11.1.4)
 [CHEF ISSUE 1761](https://github.com/opscode/chef/issues/1761) Autocomplete is enabled for Users Page  
 [CHEF ISSUE 1762](https://github.com/opscode/chef/issues/1762) Flass Attr allowScriptAccess insecurely set to Always  
