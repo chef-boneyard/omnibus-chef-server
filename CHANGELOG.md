@@ -2,6 +2,29 @@
 
 ## 11.1.4 Unreleased
 
+### Notable Changes
+
+* Upgrage of OpenSSL from 1.0.1h to 1.0.1i  
+
+  This brings the OpenSSL version bundled with the Chef server to the latest.
+
+* Update of Postgres to 9.2.9  
+
+  This is an update from 9.2.8 and contains a minor security fix around securing unix domain sockets.
+  Full release notes for the Postgres 9.2.9 release can be found [here](http://www.postgresql.org/docs/9.2/static/release-9-2-9.html)
+
+* A bug in the upgrade process in the 11.1.3 release that caused upgrades to fail attempting to create database users has been fixed.  
+
+* The ```chef-server-ctl upgrade``` command will now stop the server before applying an upgrade and restart it afterwards.  
+
+  Previously these steps were advised to be applied manually, but were not always done, which could result in the server ending up in a non-running state after an update until a restart was applied.
+
+* The cookie_domain setting of the WebUI will only be set if explicitly given.  
+
+  Previously this would by default be set to :all, which caused the WebUI to not work on EC2 unless this setting was updated to match the domain of the EC2 instance.
+
+* A number of WebUI security hardening measures have been applied. See the linked issues and PRs below for the full list.  
+
 ### Bugfixes
 
 [CHEF-5305](https://tickets.opscode.com/browse/CHEF-5305) Open Source Chef Server 11.1.0 introduces incompatibility with Debian GNU/Linux  
