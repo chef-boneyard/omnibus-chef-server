@@ -1,6 +1,6 @@
 # Chef Server Changelog
 
-## 11.1.4 Unreleased
+## 11.1.4 (2014-08-14)
 
 ### Notable Changes
 
