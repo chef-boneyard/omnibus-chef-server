@@ -111,7 +111,7 @@
   ```
     bookshelf['listen']
     rabbitmq['node_ip_address']
-    chef-solr['ip_address']
+    chef_solr['ip_address']
   ```
   The ```postgresql['listen_address']``` should be set to ```localhost``` instead of ```127.0.0.1```
 
