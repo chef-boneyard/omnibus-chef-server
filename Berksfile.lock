@@ -1,28 +1,23 @@
-{
-  "sources": {
-    "omnibus": {
-      "locked_version": "2.0.2"
-    },
-    "7-zip": {
-      "locked_version": "1.0.2"
-    },
-    "windows": {
-      "locked_version": "1.30.2"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.6"
-    },
-    "build-essential": {
-      "locked_version": "2.0.0"
-    },
-    "chef-sugar": {
-      "locked_version": "1.2.8"
-    },
-    "homebrew": {
-      "locked_version": "1.6.0"
-    },
-    "wix": {
-      "locked_version": "1.1.0"
-    }
-  }
-}
+DEPENDENCIES
+  apt
+  omnibus
+
+GRAPH
+  7-zip (1.0.2)
+    windows (>= 1.2.2)
+  apt (2.5.2)
+  build-essential (2.0.6)
+  chef-sugar (2.0.0)
+  chef_handler (1.1.6)
+  homebrew (1.9.0)
+  omnibus (2.3.0)
+    7-zip (~> 1.0)
+    build-essential (~> 2.0)
+    chef-sugar (~> 2.0)
+    homebrew (~> 1.5)
+    windows (~> 1.30)
+    wix (~> 1.1)
+  windows (1.34.2)
+    chef_handler (>= 0.0.0)
+  wix (1.1.0)
+    windows (>= 1.2.2)
