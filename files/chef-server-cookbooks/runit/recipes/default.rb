@@ -19,27 +19,52 @@
 
 case node["platform_family"]
 when "debian"
-  case node["platform"]
-  when "debian"
-    include_recipe "runit::sysvinit"
-  else # this catches ubuntu and any random ubuntu-derived debian-ish distros
-    include_recipe "runit::upstart"
-  end
-when "rhel"
-  case node["platform"]
-  when "amazon", "xenserver"
-    # TODO: platform_version check for old distro without upstart
-    include_recipe "runit::upstart"
-  else
-    if node['platform_version'] =~ /^5/
-      include_recipe "runit::sysvinit"
-    else # >= 6.0
-      include_recipe "runit::upstart"
+    case node["platform"]
+    when "debian"
+        include_recipe "runit::sysvinit"
+    else # this catches ubuntu and any random ubuntu-derived debian-ish distros
+        include_recipe "runit::upstart"
     end
-  end
+when "rhel"
+    case node["platform"]
+    when "amazon", "xenserver"
+        # TODO: platform_version check for old distro without upstart
+        include_recipe "runit::upstart"
+    else
+        case node['platform_version']
+        when =~ /^5/
+            include_recipe "runit::sysvinit"
+            #redhat-like distro version 5
+        when =~ /^6/
+            include_recipe "runit::upstart"
+            #redhat-like distro version 6
+        when =~ /^7/
+            include_recipe "runit::systemd"
+            #redhat-like distro version 7
+        end
+    end
 when "fedora"
-  # TODO: platform_version check for old distro without upstart
-  include_recipe "runit::upstart"
-else
-  include_recipe "runit::sysvinit"
+    case node['platform_version']
+    when =~ /^9/
+        include_recipe "runit::sysvinit"
+        #fedora version 9
+     when =~ /^10/
+        include_recipe "runit::upstart"
+        #fedora version 10
+    when =~ /^11/
+        include_recipe "runit::upstart"
+        #fedora version 11
+    when =~ /^12/
+        include_recipe "runit::upstart"
+        #fedora version 12
+    when =~ /^13/
+        include_recipe "runit::upstart"
+        #fedora version 13
+    when =~ /^14/
+        include_recipe "runit::upstart"
+        #fedora version 14
+    else
+        include_recipe "runit::systemd"
+    end
 end
+
