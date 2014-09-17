@@ -21,6 +21,7 @@ nginx_cache_dir = File.join(nginx_dir, "cache")
 nginx_cache_tmp_dir = File.join(nginx_dir, "cache-tmp")
 nginx_html_dir = File.join(nginx_dir, "html")
 nginx_ca_dir = File.join(nginx_dir, "ca")
+nginx_tempfile_dir = File.join(nginx_dir, "tmp")
 nginx_log_dir = node['chef_server']['nginx']['log_directory']
 
 [
@@ -31,6 +32,7 @@ nginx_log_dir = node['chef_server']['nginx']['log_directory']
   nginx_html_dir,
   nginx_ca_dir,
   nginx_log_dir,
+  nginx_tempfile_dir
 ].each do |dir_name|
   directory dir_name do
     owner node['chef_server']['user']['username']
@@ -135,7 +137,7 @@ template nginx_config do
   owner "root"
   group "root"
   mode "0644"
-  variables nginx_vars
+  variables(nginx_vars.merge({:temp_dir => nginx_tempfile_dir}))
   notifies :restart, 'service[nginx]' if OmnibusHelper.should_notify?("nginx")
 end
 
