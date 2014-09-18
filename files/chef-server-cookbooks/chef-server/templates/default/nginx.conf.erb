@@ -33,7 +33,13 @@ http {
     server <%= server %>:<%= node['chef_server'][uname]['port'] %>;
     <%- end -%>
   }
-  <%- end -%>
+<%- end -%>
+
+  fastcgi_temp_path "<%= @temp_dir %>/fastcgi";
+  client_body_temp_path "<%= @temp_dir %>/client_body";
+  uwsgi_temp_path "<%= @temp_dir %>/uwsgi";
+  scgi_temp_path "<%= @temp_dir %>/scgi";
+
 
   # external lb config for Chef API
   <%- if node['chef_server']['lb']['enable'] -%>
