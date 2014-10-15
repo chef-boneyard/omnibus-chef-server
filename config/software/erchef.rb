@@ -16,7 +16,7 @@
 #
 
 name "erchef"
-default_version "1.4.0"
+default_version "jm/update_meck"
 
 dependency "erlang"
 dependency "rsync"
