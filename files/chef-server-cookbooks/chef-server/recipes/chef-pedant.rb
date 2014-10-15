@@ -40,6 +40,18 @@ helper = OmnibusHelper.new(node)
 solr_url = "http://#{helper.vip_for_uri('chef-solr')}"
 solr_url << ":#{node['chef_server']['chef-solr']['port']}"
 
+# Snag the first supported protocol version by our ruby installation
+ssl_protocols = node['chef_server']['nginx']['ssl_protocols']
+supported_versions = OpenSSL::SSL::SSLContext::METHODS
+allowed_versions = ssl_protocols.split(/ /).select do |proto|
+  supported_versions.include? proto.gsub(".", "_").to_sym
+end
+
+# In a healthy installation, we should be able to count on
+# at least one shared protocol version. Leaving failure unhandled here,
+# since it means that a pedant run is not possible.
+ssl_version = allowed_versions.first.gsub(".", "_").to_sym
+
 template pedant_config do
   owner "root"
   group "root"
