@@ -60,6 +60,7 @@ template pedant_config do
     :api_url  => node['chef_server']['nginx']['url'],
     :solr_url => solr_url,
     :superuser_name => superuser_name,
-    :superuser_key => superuser_key
+    :superuser_key => superuser_key,
+    :ssl_version => ssl_version
   }.merge(node['chef_server']['chef-pedant'].to_hash))
 end
