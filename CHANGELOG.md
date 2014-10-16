@@ -1,60 +1,64 @@
 # Chef Server Changelog
 
+# 11.1.6 (2014-10-15)
+
 * Upgrade of openssl to 1.0.1j
-- SRTP Memory Leak (CVE-2014-3513)
-- Session Ticket Memory Leak (CVE-2014-3567)
-- Build option no-ssl3 is incomplete (CVE-2014-3568)
+* Disable SSLv3 protocol version
+
+## 11.1.5
+* Ensure contents of install dir are owned by root
+* Upgrade of openssl to 1.0.1j
 
 ## 11.1.4 (2014-08-14)
 
 ### Notable Changes
 
-* Upgrage of OpenSSL from 1.0.1h to 1.0.1i  
+* Upgrage of OpenSSL from 1.0.1h to 1.0.1i
 
   This brings the OpenSSL version bundled with the Chef server to the latest.
   Also dropped support for SSLv3 due to POODLE
 
-* Update of Postgres to 9.2.9  
+* Update of Postgres to 9.2.9
 
   This is an update from 9.2.8 and contains a minor security fix around securing unix domain sockets.
   Full release notes for the Postgres 9.2.9 release can be found [here](http://www.postgresql.org/docs/9.2/static/release-9-2-9.html)
 
-* A bug in the upgrade process in the 11.1.3 release that caused upgrades to fail attempting to create database users has been fixed.  
+* A bug in the upgrade process in the 11.1.3 release that caused upgrades to fail attempting to create database users has been fixed.
 
-* The ```chef-server-ctl upgrade``` command will now stop the server before applying an upgrade and restart it afterwards.  
+* The ```chef-server-ctl upgrade``` command will now stop the server before applying an upgrade and restart it afterwards.
 
   Previously these steps were advised to be applied manually, but were not always done, which could result in the server ending up in a non-running state after an update until a restart was applied.
 
-* The cookie_domain setting of the WebUI will only be set if explicitly given.  
+* The cookie_domain setting of the WebUI will only be set if explicitly given.
 
   Previously this would by default be set to :all, which caused the WebUI to not work on EC2 unless this setting was updated to match the domain of the EC2 instance.
 
-* A number of WebUI security hardening measures have been applied. See the linked issues and PRs below for the full list.  
+* A number of WebUI security hardening measures have been applied. See the linked issues and PRs below for the full list.
 
 ### Bugfixes
 
-[CHEF-5305](https://tickets.opscode.com/browse/CHEF-5305) Open Source Chef Server 11.1.0 introduces incompatibility with Debian GNU/Linux  
-[CHEF ISSUE 1595](https://github.com/opscode/chef/issues/1595) chef-server 11.1.3-1 upgrade fails  
-[CHEF ISSUE 1757](https://github.com/opscode/chef/issues/1757) Sensitive Pages are Cached  
-[CHEF ISSUE 1759](https://github.com/opscode/chef/issues/1759) Chef not using Secure Cookie with SSL Enabled  
-[CHEF ISSUE 1780](https://github.com/opscode/chef/issues/1780) Chef server doesn't work on ec2 flawlessly  
-[PR 63](https://github.com/opscode/omnibus-chef-server/pull/63) increase s3_url_ttl from 15m to 8h  
-[PR 73](https://github.com/opscode/omnibus-chef-server/pull/73) `initctl stop chef-server-runsvdir` leaves orphaned processes  
-[PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage  
-[PR 78](https://github.com/opscode/omnibus-chef-server/pull/78) Fix runit-cookbook for gentoo  
-[PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere  
-[PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script  
-[PR 83](https://github.com/opscode/omnibus-chef-server/pull/83) Update postgres to 9.2.9 to pick up security patches  
-[PR 84](https://github.com/opscode/omnibus-chef-server/pull/84) Automate the stop and restart before/after the upgrade command  
-[PR 89](https://github.com/opscode/omnibus-chef-server/pull/89) Bump openssl to 1.0.1i  
+[CHEF-5305](https://tickets.opscode.com/browse/CHEF-5305) Open Source Chef Server 11.1.0 introduces incompatibility with Debian GNU/Linux
+[CHEF ISSUE 1595](https://github.com/opscode/chef/issues/1595) chef-server 11.1.3-1 upgrade fails
+[CHEF ISSUE 1757](https://github.com/opscode/chef/issues/1757) Sensitive Pages are Cached
+[CHEF ISSUE 1759](https://github.com/opscode/chef/issues/1759) Chef not using Secure Cookie with SSL Enabled
+[CHEF ISSUE 1780](https://github.com/opscode/chef/issues/1780) Chef server doesn't work on ec2 flawlessly
+[PR 63](https://github.com/opscode/omnibus-chef-server/pull/63) increase s3_url_ttl from 15m to 8h
+[PR 73](https://github.com/opscode/omnibus-chef-server/pull/73) `initctl stop chef-server-runsvdir` leaves orphaned processes
+[PR 76](https://github.com/opscode/omnibus-chef-server/pull/76) Set correct maintainer and homepage
+[PR 78](https://github.com/opscode/omnibus-chef-server/pull/78) Fix runit-cookbook for gentoo
+[PR 79](https://github.com/opscode/omnibus-chef-server/pull/79) Attribute for depsolver_timeout not used anywhere
+[PR 81](https://github.com/opscode/omnibus-chef-server/pull/81) Fix the paths in the wait-for-rabbit script
+[PR 83](https://github.com/opscode/omnibus-chef-server/pull/83) Update postgres to 9.2.9 to pick up security patches
+[PR 84](https://github.com/opscode/omnibus-chef-server/pull/84) Automate the stop and restart before/after the upgrade command
+[PR 89](https://github.com/opscode/omnibus-chef-server/pull/89) Bump openssl to 1.0.1i
 
 ### [chef-server-webui 11.1.5](https://github.com/opscode/chef-server-webui/releases/tag/11.1.5)
-[Commit b48a2d7](https://github.com/opscode/chef-server-webui/commit/b48a2d7953390ae2dbec28127c2893f2b6175c0a) Fix syntax error preventing login screen from rendering  
+[Commit b48a2d7](https://github.com/opscode/chef-server-webui/commit/b48a2d7953390ae2dbec28127c2893f2b6175c0a) Fix syntax error preventing login screen from rendering
 
 ### [chef-server-webui 11.1.4](https://github.com/opscode/chef-server-webui/releases/tag/11.1.4)
-[CHEF ISSUE 1761](https://github.com/opscode/chef/issues/1761) Autocomplete is enabled for Users Page  
-[CHEF ISSUE 1762](https://github.com/opscode/chef/issues/1762) Flass Attr allowScriptAccess insecurely set to Always  
-[PR 33](https://github.com/opscode/chef-server-webui/pull/33) fix layout error and add Pry  
+[CHEF ISSUE 1761](https://github.com/opscode/chef/issues/1761) Autocomplete is enabled for Users Page
+[CHEF ISSUE 1762](https://github.com/opscode/chef/issues/1762) Flass Attr allowScriptAccess insecurely set to Always
+[PR 33](https://github.com/opscode/chef-server-webui/pull/33) fix layout error and add Pry
 
 ### [chef-server-webui 11.1.3](https://github.com/opscode/chef-server-webui/releases/tag/11.1.3)
 [CHEF-4859](https://tickets.opscode.com/browse/CHEF-4859) Support rendering non-ascii characters in cookbook files
@@ -75,7 +79,7 @@
 
 ### Notable changes
 
-* Addition of a ```chef-server-ctl upgrade command```  
+* Addition of a ```chef-server-ctl upgrade command```
 
     This allows an upgrade of the Chef server in place. It applies necessary SQL changes and other updates without having to install the server from scratch and without having to reimport data.
 
@@ -100,7 +104,7 @@
 
   If you're upgrading from a pre-11.0.8 version of the Chef server, see the section on the runit update below for a note on possible orphaned processes that may need to be cleaned up.
 
-* Full IPv6 support  
+* Full IPv6 support
 
     The Chef server now fully supports IPv6. In the chef-server.rb file, setting ```ip_version "ipv6"``` will turn on IPv6 mode. Note that no equal sign is used when setting this value. This will enable the Chef server to accept IPv6 connections internally and externally. The server will be in dual IPv4/IPv6 mode, so IPv4 connections will continue to function.
 
@@ -125,12 +129,12 @@
 
   **Due to the change in these default listen interfaces it may be necessary to update firewalls rules or else set the listen addresses back to the old defaults.**
 
-* Addition of ```nginx['enable_ipv6']``` option  
+* Addition of ```nginx['enable_ipv6']``` option
 
     Nginx is now included with IPv6 support available. To make use of this, there is an ```nginx['enable_ipv6']``` option that when set to true will cause nginx to handle IPv6 addresses. If full IPv6 support is enabled, this flag will be automatically set (see Full IPv6 support, above). If this flag is enabled without full IPv6 support being enabled, then the Chef server will be able to accept IPv6 connections, but the Chef server components will continue to operate in IPv4 mode internally.
 
 
-* Added support for proxy/firewalls.  
+* Added support for proxy/firewalls.
 
     Chef server now supports working through proxies and firewalls by providing settings that expose where clients should retrieve cookbooks from.
 
@@ -181,44 +185,44 @@
 
 ### Bugfixes
 
-* [CHEF-5038](https://tickets.opscode.com/browse/CHEF-5038) Setting NGINX logs to non-standard dir in chef-server doesn't work  
-* [CHEF-5031](https://tickets.opscode.com/browse/CHEF-5031) chef-server-ctl reconfigure breaks if chef_pedant or estatsd settings are in chef-server.rb  
-* [CHEF-4576](https://tickets.opscode.com/browse/CHEF-4576) Chef Server nginx should be compiled with ipv6 support  
-* [CHEF-4511](https://tickets.opscode.com/browse/CHEF-4511) Error in chef_wm/rebar.config  
-* [CHEF-4504](https://tickets.opscode.com/browse/CHEF-4504) knife upload interupts with "500 Internal Server Error"  
-* [CHEF-4382](https://tickets.opscode.com/browse/CHEF-4382) using a non-default postgresql['port'] in chef-server.rb breaks "chef-server-ctl reconfigure"  
-* [CHEF-4346](https://tickets.opscode.com/browse/CHEF-4346) Default Rabbitmq port should be changed to avoid collision with qpidd  
-* [CHEF-4235](https://tickets.opscode.com/browse/CHEF-4235) Chef Omnibus cannot be configured with non-default postgres port  
-* [CHEF-4188](https://tickets.opscode.com/browse/CHEF-4188) runit embedded in chef-server /etc/inittab entry conflicts with user-installed runit  
-* [CHEF-4086](https://tickets.opscode.com/browse/CHEF-4086) getting a latest cookbook list from erchef over split horizon DNS results in great vengeance and furious anger  
-* [CHEF-3991](https://tickets.opscode.com/browse/CHEF-3991) Dialyzer fix for estatsd  
-* [CHEF-3976](https://tickets.opscode.com/browse/CHEF-3976) chef_objects rejects "provides 'service[foo]'"" in metadata  
-* [CHEF-3975](https://tickets.opscode.com/browse/CHEF-3975) Searching for compound attributes in data bags will not yield results  
-* [CHEF-3921](https://tickets.opscode.com/browse/CHEF-3921) Missing Dependency causes chef server to consume all the CPU  
-* [CHEF-3838](https://tickets.opscode.com/browse/CHEF-3838) RabbitMQ does not start on Oracle or Amazon Linux  
-* [CHEF-2380](https://tickets.opscode.com/browse/CHEF-2380) Clients Should be Able to Upload Their Own Public Keys to Chef-Server  
-* [CHEF-2245](https://tickets.opscode.com/browse/CHEF-2245) chef-solr jetty request logs go into /var/chef/solr-jetty/logs instead of /var/log/chef  
+* [CHEF-5038](https://tickets.opscode.com/browse/CHEF-5038) Setting NGINX logs to non-standard dir in chef-server doesn't work
+* [CHEF-5031](https://tickets.opscode.com/browse/CHEF-5031) chef-server-ctl reconfigure breaks if chef_pedant or estatsd settings are in chef-server.rb
+* [CHEF-4576](https://tickets.opscode.com/browse/CHEF-4576) Chef Server nginx should be compiled with ipv6 support
+* [CHEF-4511](https://tickets.opscode.com/browse/CHEF-4511) Error in chef_wm/rebar.config
+* [CHEF-4504](https://tickets.opscode.com/browse/CHEF-4504) knife upload interupts with "500 Internal Server Error"
+* [CHEF-4382](https://tickets.opscode.com/browse/CHEF-4382) using a non-default postgresql['port'] in chef-server.rb breaks "chef-server-ctl reconfigure"
+* [CHEF-4346](https://tickets.opscode.com/browse/CHEF-4346) Default Rabbitmq port should be changed to avoid collision with qpidd
+* [CHEF-4235](https://tickets.opscode.com/browse/CHEF-4235) Chef Omnibus cannot be configured with non-default postgres port
+* [CHEF-4188](https://tickets.opscode.com/browse/CHEF-4188) runit embedded in chef-server /etc/inittab entry conflicts with user-installed runit
+* [CHEF-4086](https://tickets.opscode.com/browse/CHEF-4086) getting a latest cookbook list from erchef over split horizon DNS results in great vengeance and furious anger
+* [CHEF-3991](https://tickets.opscode.com/browse/CHEF-3991) Dialyzer fix for estatsd
+* [CHEF-3976](https://tickets.opscode.com/browse/CHEF-3976) chef_objects rejects "provides 'service[foo]'"" in metadata
+* [CHEF-3975](https://tickets.opscode.com/browse/CHEF-3975) Searching for compound attributes in data bags will not yield results
+* [CHEF-3921](https://tickets.opscode.com/browse/CHEF-3921) Missing Dependency causes chef server to consume all the CPU
+* [CHEF-3838](https://tickets.opscode.com/browse/CHEF-3838) RabbitMQ does not start on Oracle or Amazon Linux
+* [CHEF-2380](https://tickets.opscode.com/browse/CHEF-2380) Clients Should be Able to Upload Their Own Public Keys to Chef-Server
+* [CHEF-2245](https://tickets.opscode.com/browse/CHEF-2245) chef-solr jetty request logs go into /var/chef/solr-jetty/logs instead of /var/log/chef
 
 ### Individual Component changes
 
 #### [chef-server-webui 11.1.2](https://github.com/opscode/chef-server-webui/releases/tag/11.1.2)
 
-An update from [chef-server-webui 11.0.10](https://github.com/opscode/chef-server-webui/releases/tag/11.0.10)  
+An update from [chef-server-webui 11.0.10](https://github.com/opscode/chef-server-webui/releases/tag/11.0.10)
 Also see [chef-server-webui 11.1](https://github.com/opscode/chef-server-webui/releases/tag/11.1)
 
-* [CHEF-5284](https://tickets.opscode.com/browse/CHEF-5284) Upgrade Rails to 3.2.18  
-* [CHEF-5242](https://tickets.opscode.com/browse/CHEF-5242) Fix Extra Apostrophe in webui JSON editor  
-* [CHEF-5056](https://tickets.opscode.com/browse/CHEF-5056) Upgrade Rails to 3.2.17  
-* [CHEF-4858](https://tickets.opscode.com/browse/CHEF-4858) Upgrade chef-server-webui Rails to 3.2.16  
-* [CHEF-4757](https://tickets.opscode.com/browse/CHEF-4757) ruby cookbook file in web UI shows up as "Binary file not shown"  
-* [CHEF-4403](https://tickets.opscode.com/browse/CHEF-4403) Environment edit screen: Stop json being escaped as html  
-* [CHEF-4040](https://tickets.opscode.com/browse/CHEF-4040) Environment existing settings are not displayed correctly when editing environments or nodes via the WebUI  
-* [CHEF-4004](https://tickets.opscode.com/browse/CHEF-4004) Select to Close Existing Environment Run List Uses Incorrect Rails Helper  
-* [CHEF-3952](https://tickets.opscode.com/browse/CHEF-3952) Cookbook view reports ERROR: undefined method 'close!' for nil:NilClass  
-* [CHEF-3951](https://tickets.opscode.com/browse/CHEF-3951) databag item creation not possible  
-* [CHEF-3883](https://tickets.opscode.com/browse/CHEF-3883) Chef 11 status page does not list all nodes  
-* [CHEF-3267](https://tickets.opscode.com/browse/CHEF-3267) webui status page doesn't respect environment selection  
-* [CHEF-2060](https://tickets.opscode.com/browse/CHEF-2060) Auto-complete is enabled in Chef html - /users/login_exec  
+* [CHEF-5284](https://tickets.opscode.com/browse/CHEF-5284) Upgrade Rails to 3.2.18
+* [CHEF-5242](https://tickets.opscode.com/browse/CHEF-5242) Fix Extra Apostrophe in webui JSON editor
+* [CHEF-5056](https://tickets.opscode.com/browse/CHEF-5056) Upgrade Rails to 3.2.17
+* [CHEF-4858](https://tickets.opscode.com/browse/CHEF-4858) Upgrade chef-server-webui Rails to 3.2.16
+* [CHEF-4757](https://tickets.opscode.com/browse/CHEF-4757) ruby cookbook file in web UI shows up as "Binary file not shown"
+* [CHEF-4403](https://tickets.opscode.com/browse/CHEF-4403) Environment edit screen: Stop json being escaped as html
+* [CHEF-4040](https://tickets.opscode.com/browse/CHEF-4040) Environment existing settings are not displayed correctly when editing environments or nodes via the WebUI
+* [CHEF-4004](https://tickets.opscode.com/browse/CHEF-4004) Select to Close Existing Environment Run List Uses Incorrect Rails Helper
+* [CHEF-3952](https://tickets.opscode.com/browse/CHEF-3952) Cookbook view reports ERROR: undefined method 'close!' for nil:NilClass
+* [CHEF-3951](https://tickets.opscode.com/browse/CHEF-3951) databag item creation not possible
+* [CHEF-3883](https://tickets.opscode.com/browse/CHEF-3883) Chef 11 status page does not list all nodes
+* [CHEF-3267](https://tickets.opscode.com/browse/CHEF-3267) webui status page doesn't respect environment selection
+* [CHEF-2060](https://tickets.opscode.com/browse/CHEF-2060) Auto-complete is enabled in Chef html - /users/login_exec
 
 The full changeset can be viewed on Github's compare view [here](https://github.com/opscode/chef-server-webui/compare/11.0.10...11.1.2)
 
