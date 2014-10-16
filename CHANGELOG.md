@@ -1,5 +1,10 @@
 # Chef Server Changelog
 
+* Upgrade of openssl to 1.0.1j
+- SRTP Memory Leak (CVE-2014-3513)
+- Session Ticket Memory Leak (CVE-2014-3567)
+- Build option no-ssl3 is incomplete (CVE-2014-3568)
+
 ## 11.1.4 (2014-08-14)
 
 ### Notable Changes
