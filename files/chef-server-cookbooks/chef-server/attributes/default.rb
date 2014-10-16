@@ -206,15 +206,16 @@ default['chef_server']['nginx']['enable_non_ssl'] = false
 default['chef_server']['nginx']['non_ssl_port'] = 80
 default['chef_server']['nginx']['server_name'] = node['fqdn']
 default['chef_server']['nginx']['url'] = "https://#{node['fqdn']}"
-# These options provide the current best security with TSLv1
-#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +TLSv1"
-#default['chef_server']['nginx']['ssl_ciphers'] = "RC4:!MD5"
-# This might be necessary for auditors that want no MEDIUM security ciphers and don't understand BEAST attacks
-#default['chef_server']['nginx']['ssl_protocols'] = "-ALL +SSLv3 +TLSv1"
-#default['chef_server']['nginx']['ssl_ciphers'] = "HIGH:!MEDIUM:!LOW:!ADH:!kEDH:!aNULL:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
-# The following favors performance and compatibility, addresses BEAST, and should pass a PCI audit
-default['chef_server']['nginx']['ssl_protocols'] = "SSLv3 TLSv1"
-default['chef_server']['nginx']['ssl_ciphers'] = "RC4-SHA:RC4-MD5:RC4:RSA:HIGH:MEDIUM:!LOW:!kEDH:!aNULL:!ADH:!eNULL:!EXP:!SSLv2:!SEED:!CAMELLIA:!PSK"
+# Based off of the Mozilla recommended cipher suite
+# https://wiki.mozilla.org/Security/Server_Side_TLS#Recommended_Ciphersuite
+#
+# SSLV3 was removed because of the poodle attack. (https://www.openssl.org/~bodo/ssl-poodle.pdf)
+#
+# If your infrastructure still has requirements for the vulnerable/venerable SSLV3, you can add
+# "SSLv3" to the below line.
+default['chef_server']['nginx']['ssl_protocols'] = "TLSv1 TLSv1.1 TLSv1.2"
+default['chef_server']['nginx']['ssl_ciphers'] = "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA"
+
 default['chef_server']['nginx']['ssl_certificate'] = nil
 default['chef_server']['nginx']['ssl_certificate_key'] = nil
 default['chef_server']['nginx']['ssl_country_name'] = "US"

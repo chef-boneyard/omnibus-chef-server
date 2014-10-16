@@ -7,6 +7,7 @@
 * Upgrage of OpenSSL from 1.0.1h to 1.0.1i  
 
   This brings the OpenSSL version bundled with the Chef server to the latest.
+  Also dropped support for SSLv3 due to POODLE
 
 * Update of Postgres to 9.2.9  
 
