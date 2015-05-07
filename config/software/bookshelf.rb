@@ -22,7 +22,7 @@ dependency "erlang"
 dependency "rebar"
 dependency "rsync"
 
-source :git => "git://github.com/opscode/bookshelf.git"
+source :git => "https://github.com/chef/bookshelf.git"
 
 relative_path "bookshelf"
 

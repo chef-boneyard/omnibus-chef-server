@@ -21,7 +21,7 @@ default_version "11.0.1"
 dependency "rsync"
 dependency "jre"
 
-source :git => "git://github.com/opscode/chef-solr"
+source :git => "https://github.com/chef/chef-solr"
 
 service_dir = "#{install_dir}/embedded/service/chef-solr"
 relative_path "chef-solr"

@@ -20,7 +20,7 @@ default_version "retry_use_source"
 
 dependency "erlang"
 
-source :git => "git://github.com/kevsmith/rebar.git"
+source :git => "https://github.com/kevsmith/rebar.git"
 
 relative_path "rebar"
 
