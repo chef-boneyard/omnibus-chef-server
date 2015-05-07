@@ -16,12 +16,16 @@
 #
 
 name "postgresql"
-default_version "9.2.9"
+default_version "9.2.10"
 
 dependency "zlib"
 dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
+
+version "9.2.10" do
+  source :md5 => "7b81646e2eaf67598d719353bf6ee936"
+end
 
 version "9.2.9" do
   source :md5 => "38b0937c86d537d5044c599273066cfc"
