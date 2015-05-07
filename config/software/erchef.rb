@@ -23,7 +23,7 @@ dependency "rsync"
 dependency "curl"
 dependency "gecode"
 
-source :git => "git://github.com/opscode/erchef"
+source :git => "https://github.com/chef/erchef"
 
 relative_path "erchef"
 

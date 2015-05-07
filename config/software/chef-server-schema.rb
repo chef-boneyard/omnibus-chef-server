@@ -1,7 +1,7 @@
 name "chef-server-schema"
 default_version "1.0.4"
 
-source :git => "git://github.com/opscode/chef-server-schema.git"
+source :git => "https://github.com/chef/chef-server-schema.git"
 
 dependency "sqitch"
 

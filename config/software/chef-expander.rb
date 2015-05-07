@@ -22,7 +22,7 @@ dependency "ruby"
 dependency "bundler"
 dependency "rsync"
 
-source :git => "git://github.com/opscode/chef-expander"
+source :git => "https://github.com/chef/chef-expander"
 
 relative_path "chef-expander"
 

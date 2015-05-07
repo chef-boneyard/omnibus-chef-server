@@ -25,7 +25,7 @@ dependency "libxslt"
 dependency "curl"
 dependency "rsync"
 
-source :git => "git://github.com/opscode/chef-server-webui.git"
+source :git => "https://github.com/chef/chef-server-webui.git"
 
 relative_path "chef-server-webui"
 
