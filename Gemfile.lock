@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/opscode/omnibus-ruby.git
-  revision: 681fa1c77d2d9cbdcb47c8eae7ab28de1100937d
+  revision: e5a03c1be5622dc3cad2fb10c2d1cc9b9d2de05a
   branch: 2.0-stable
   specs:
     omnibus (2.0.2)
@@ -21,16 +21,15 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.6)
-    arr-pm (0.0.9)
+    addressable (2.3.8)
+    arr-pm (0.0.10)
       cabin (> 0)
     backports (3.6.4)
-    cabin (0.6.1)
-    childprocess (0.5.3)
+    cabin (0.7.1)
+    childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
-    clamp (0.6.3)
-    ffi (1.9.3)
-    ffi (1.9.3-x86-mingw32)
+    clamp (0.6.5)
+    ffi (1.9.8-x86-mingw32)
     fpm (0.4.42)
       arr-pm (~> 0.0.8)
       backports (>= 2.6.2)
@@ -39,21 +38,20 @@ GEM
       clamp (~> 0.6)
       ftw (~> 0.0.30)
       json (>= 1.7.7)
-    ftw (0.0.39)
+    ftw (0.0.42)
       addressable
       backports (>= 2.6.2)
       cabin (> 0)
-      http_parser.rb (= 0.5.3)
-    http_parser.rb (0.5.3)
-    http_parser.rb (0.5.3-x86-mingw32)
+      http_parser.rb (~> 0.6)
+    http_parser.rb (0.6.0)
     ipaddress (0.8.0)
-    json (1.8.1)
+    json (1.8.2)
     mime-types (1.25.1)
     mixlib-cli (1.5.0)
-    mixlib-config (2.1.0)
+    mixlib-config (2.2.1)
     mixlib-log (1.6.0)
-    mixlib-shellout (1.4.0)
-    mixlib-shellout (1.4.0-x86-mingw32)
+    mixlib-shellout (1.6.1)
+    mixlib-shellout (1.6.1-x86-mingw32)
       win32-process (~> 0.7.1)
       windows-pr (~> 1.2.2)
     ohai (6.24.2)
@@ -64,17 +62,17 @@ GEM
       mixlib-shellout
       systemu (~> 2.5.2)
       yajl-ruby
-    rake (10.3.2)
+    rake (10.4.2)
     systemu (2.5.2)
     thor (0.19.1)
     uber-s3 (0.2.4)
       mime-types (~> 1.17)
-    win32-api (1.5.1-x86-mingw32)
-    win32-process (0.7.4)
+    win32-api (1.5.3-universal-mingw32)
+    win32-process (0.7.5)
       ffi (>= 1.0.0)
-    windows-api (0.4.2)
+    windows-api (0.4.4)
       win32-api (>= 1.4.5)
-    windows-pr (1.2.3)
+    windows-pr (1.2.4)
       win32-api (>= 1.4.5)
       windows-api (>= 0.4.0)
     yajl-ruby (1.2.1)
