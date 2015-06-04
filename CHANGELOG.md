@@ -1,5 +1,11 @@
 # Chef Server Changelog
 
+# 11.1.7 (2015-06-03)
+
+* Upgrade of openssl to 1.0.1m
+* Upgrade postgresql to 9.2.10
+* Upgrade nginx to 1.8.0
+
 # 11.1.6 (2014-10-15)
 
 * Upgrade of openssl to 1.0.1j
