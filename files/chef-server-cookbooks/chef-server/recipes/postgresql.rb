@@ -56,34 +56,23 @@ PATH=#{node['chef_server']['postgresql']['user_path']}
 EOH
 end
 
-if File.directory?("/etc/sysctl.d") && File.exists?("/etc/init.d/procps")
-  # smells like ubuntu...
-  service "procps" do
-    action :nothing
-  end
-
-  template "/etc/sysctl.d/90-postgresql.conf" do
-    source "90-postgresql.conf.sysctl.erb"
-    owner "root"
-    mode  "0644"
-    variables(node['chef_server']['postgresql'].to_hash)
-    notifies :start, 'service[procps]', :immediately
-  end
-else
-  # hope this works...
-  execute "sysctl" do
-    command "/sbin/sysctl -p /etc/sysctl.conf"
-    action :nothing
-  end
-
-  bash "add shm settings" do
-    user "root"
-    code <<-EOF
-      echo 'kernel.shmmax = #{node['chef_server']['postgresql']['shmmax']}' >> /etc/sysctl.conf
-      echo 'kernel.shmall = #{node['chef_server']['postgresql']['shmall']}' >> /etc/sysctl.conf
-    EOF
-    notifies :run, 'execute[sysctl]', :immediately
-    not_if "egrep '^kernel.shmmax = ' /etc/sysctl.conf"
+sysv_mem_keys = ["shmmax","shmall"]
+sysv_mem = Hash.new
+sysv_mem_keys.each do |k|
+  sysv_mem[k] = IO.read("/proc/sys/kernel/#{k}").strip.to_i
+  if sysv_mem[k] < node['chef_server']['postgresql'][k]
+    # Set the sysctl value directly.
+    execute "sysctl kernel.#{k}=#{node['chef_server']['postgresql'][k]}"
+    shmem_setting = "kernel.#{k} = #{node['chef_server']['postgresql'][k]}"
+    shmem_target = if File.directory?("/etc/sysctl.d")
+                     "/etc/sysctl.d/90-chef-server-postgresql.conf"
+                   else
+                     "/etc/sysctl.conf"
+                   end
+    bash "Save #{k} postgresql setting for next reboot" do
+      code "echo '#{shmem_setting}' >> '#{shmem_target}'"
+      not_if "fgrep -q '#{shmem_setting}' #{shmem_target}"
+    end
   end
 end
 
